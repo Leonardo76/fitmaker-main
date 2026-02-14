@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, } from "react";
 import { getStringDate } from "../../lib/utils";
 import { useEmailStore } from "../../stores/useEmailStore";
 
@@ -27,10 +27,12 @@ export default function InputDate({labelText }: InputDateProps) {
           type="date"
           name="birth_date"
           id="birth_date"
-          className="flex grow justify-between bg-primaryVar3 outline-none"
+          // className="flex grow bg-primaryVar3 outline-none"
+          className="block w-full bg-primaryVar3 outline-none"
           required
           onChange={handleChange}
         />
+
       </div>
     </label>
   );

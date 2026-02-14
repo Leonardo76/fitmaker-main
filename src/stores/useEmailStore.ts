@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-// import { getCurrentDate } from "../lib/utils";
 import { devtools } from "zustand/middleware";
 import { GenderType } from "../lib/types";
 

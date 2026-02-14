@@ -12,6 +12,13 @@ import Trainers from "./components/Trainers";
 import { MouseEvent, useEffect, useState } from "react";
 import { useMenuStore } from "./stores/useMenuStore";
 
+//TODO: la BirthDate in Vivaldi icon este apropriat de mm/dd/yyyy
+//TODO: animate menu hover
+//TODO: Join Our Fitness Community nu imi place ultimul paragraf (sa il fac centrat??)
+//TODO: sa pun titlu la form
+//TODO: padding top mai mare la send email
+//TODO: callback la Start your journey si la Explore Programs
+
 function App() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const menuOpen = useMenuStore((state) => state.menuOpen);
