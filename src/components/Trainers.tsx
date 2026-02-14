@@ -1,38 +1,37 @@
-import { useRef, useState } from "react";
-import {
-  arrowLeftWhite,
-  arrowRight,
-  arrowRightWhite,
-  chevronRight,
-} from "../assets";
-import Section from "./reusable/Section";
+import { useRef } from "react";
+// import {
+//   arrowLeftWhite,
+//   arrowRight,
+//   arrowRightWhite,
+//   chevronRight,
+// } from "../assets";
 import { trainers } from "../constants";
 
 import { motion } from "motion/react";
 import { revealVar } from "../motion/opacityReveal";
 
 const Trainers = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
+  // const [scrollPosition, setScrollPosition] = useState(0);
   const containerRef = useRef();
 
-  const amount = window.innerWidth - window.innerWidth / 2;
+  // const amount = window.innerWidth - window.innerWidth / 2;
 
-  const handleScroll = (scrollAmount) => {
-    if (!containerRef.current) return;
-
-    const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-
-    const maxScrollLeft = scrollWidth - clientWidth;
-    const newScrollPosition = Math.min(
-      Math.max(scrollLeft + scrollAmount, 0),
-      maxScrollLeft,
-    );
-
-    setScrollPosition(newScrollPosition);
-    containerRef.current.scrollLeft = newScrollPosition;
-  };
+  // const handleScroll = (scrollAmount:number) => {
+  //   if (!containerRef.current) return;
+  //
+  //   const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
+  //
+  //   const maxScrollLeft = scrollWidth - clientWidth;
+  //   const newScrollPosition = Math.min(
+  //     Math.max(scrollLeft + scrollAmount, 0),
+  //     maxScrollLeft,
+  //   );
+  //
+  //   setScrollPosition(newScrollPosition);
+  //   containerRef.current.scrollLeft = newScrollPosition;
+  // };
   return (
-    <Section>
+    <section className={`py-8 lg:py-10 xl:py-12`} id="trainer">
       <motion.div
         variants={revealVar}
         initial="hidden"
@@ -41,7 +40,7 @@ const Trainers = () => {
         className="container space-y-4 xl:space-y-6"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-center text-xl font-semibold lg:text-2xl lg:font-bold xl:text-3xl">
+          <h2 className="text-center text-xl font-semibold mx-1 md:mx-3 lg:text-2xl lg:font-bold xl:text-3xl">
             Meet the <span className="text-primary">Trainer</span>
           </h2>
           {/*<div className="flex items-center gap-2">*/}
@@ -102,7 +101,7 @@ const Trainers = () => {
         {/*  <img src={chevronRight} alt="" />*/}
         {/*</button>*/}
       </motion.div>
-    </Section>
+    </section>
   );
 };
 

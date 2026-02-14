@@ -6,11 +6,10 @@ import {
   socialIcons,
 } from "../constants";
 import Logo from "./reusable/Logo";
-import Section from "./reusable/Section";
 
 const Footer = () => {
   return (
-    <Section className="bg-grey">
+    <section className={`bg-grey py-8 lg:py-10 xl:py-12 mx-1`} id="contact">
       <div className="container flex justify-between gap-6 max-md:flex-col lg:gap-2 xl:gap-3">
         <div className="space-y-4 md:w-[37%] xl:space-y-6">
           <Logo />
@@ -85,7 +84,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 };
 

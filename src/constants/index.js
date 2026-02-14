@@ -4,11 +4,11 @@ import {
   edward,
   email,
   facebook,
-  harris,
+  // harris,
   homeTraining,
   hTraining,
   instagram,
-  john,
+  // john,
   josh,
   location,
   motivated,
@@ -19,7 +19,7 @@ import {
   service3,
   service4,
   steven,
-  tom,
+  // tom,
   tool1,
   tool2,
   tool3,
@@ -31,28 +31,39 @@ import {
 export const navLinks = [
   {
     id: 1,
-    title: "Home",
+    title: "Services",
     hasChildren: false,
+    href: "#services",
   },
   {
     id: 2,
-    title: "Programs",
-    hasChildren: true,
+    title: "Plans",
+    hasChildren: false,
+    href: "#plans",
   },
   {
     id: 3,
-    title: "Coaching",
-    hasChildren: true,
+    title: "Trainer",
+    hasChildren: false,
+    href: "#trainer",
   },
-  // {
-  //   id: 4,
-  //   title: "Membership",
-  //   hasChildren: false,
-  // },
   {
     id: 4,
-    title: "About Us",
+    title: "FAQ",
     hasChildren: false,
+    href: "#faq",
+  },
+  {
+    id: 5,
+    title: "Contact",
+    hasChildren: false,
+    href: "#contact",
+  },
+  {
+    id: 6,
+    title: "Join Us",
+    hasChildren: false,
+    href: "#join",
   },
 ];
 
@@ -147,7 +158,7 @@ export const plans = [
   },
   {
     id: 3,
-    package: "Begginer Plan",
+    package: "Beginner Plan",
     description:
       "Start your fitness journey with our Beginner Plan. Build a strong foundation with basic workouts and essential nutrition guidance.",
     features: [
@@ -167,7 +178,7 @@ export const tools = [tool1, tool2, tool3, tool4, tool3];
 export const testimonials = [
   {
     id: 1,
-    name: "Steven Haward",
+    name: "Eduard",
     about: "Our Trainer",
     review:
       "I’ve been using Fitmaker for the past three months, and I’m genuinely impressed. The website is easy to navigate, and everything is laid out clearly. I purchased the Premium Plan, and the personalized coaching has been a game-changer for me. My coach is incredibly supportive and always available to answer my questions.",
@@ -195,25 +206,25 @@ export const trainers = [
   {
     id: 1,
     name: "Sam Cole",
-    role: "Pesonal Trainer",
+    role: "Personal Trainer",
     image: sam,
   },
   // {
   //   id: 2,
   //   name: "M. Harris",
-  //   role: "Pesonal Trainer",
+  //   role: "Personal Trainer",
   //   image: harris,
   // },
   // {
   //   id: 3,
   //   name: "John Haley",
-  //   role: "Pesonal Trainer",
+  //   role: "Personal Trainer",
   //   image: john,
   // },
   // {
   //   id: 4,
   //   name: "Tom Blake",
-  //   role: "Pesonal Trainer",
+  //   role: "Personal Trainer",
   //   image: tom,
   // },
 ];
@@ -323,7 +334,7 @@ export const programsLinks = [
 export const contactInfo = [
   {
     icon: location,
-    info: "Usa - Washngton DC",
+    info: "Usa - Washington DC",
   },
   {
     icon: phone,

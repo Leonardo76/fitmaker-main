@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { faqClose, faqOpen } from "../assets";
 import { faq } from "../constants";
-import Section from "./reusable/Section";
 
 import { motion } from "motion/react";
 import { revealVar } from "../motion/opacityReveal";
@@ -9,7 +8,7 @@ import { revealVar } from "../motion/opacityReveal";
 const Faq = () => {
   const [openQuestion, setOpenQuestion] = useState(null);
   return (
-    <Section>
+    <section className={`py-8 lg:py-10 xl:py-12`} id="faq">
       <motion.div
         variants={revealVar}
         initial="hidden"
@@ -22,7 +21,7 @@ const Faq = () => {
         <h2 className="text-center text-xl font-semibold lg:text-2xl lg:font-bold xl:text-3xl">
           FAQ
         </h2>
-        <div className="flex flex-col gap-4 rounded-lg border-2 border-secondary xl:gap-6">
+        <div className="flex flex-col gap-4 rounded-lg border-2 border-secondary xl:gap-6 mx-1 md:mx-3">
           {faq.map((q, i) => (
             <div key={q.id}>
               <div
@@ -50,7 +49,7 @@ const Faq = () => {
           ))}
         </div>
       </motion.div>
-    </Section>
+    </section>
   );
 };
 

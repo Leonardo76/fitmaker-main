@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
-import { chevronDown, menu, searchIcon } from "../assets";
+import { MouseEvent, useEffect, useState } from "react";
+import { chevronDown, menu } from "../assets";
 import { navLinks } from "../constants";
 import Logo from "./reusable/Logo";
 import MobileMenu from "./MobileMenu";
 
 import {
-  motion,
   AnimatePresence,
-  useScroll,
+  motion,
   useMotionValueEvent,
+  useScroll,
 } from "motion/react";
+
+import { useMenuStore } from "../stores/useMenuStore";
 
 export const headerVar = {
   visible: { y: 0, transition: { duration: 0.35, ease: "easeInOut" } },
@@ -17,7 +19,9 @@ export const headerVar = {
 };
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const menuOpen= useMenuStore(state=>state.menuOpen);
+  const setMenuOpen = useMenuStore((state) => state.setMenuOpen);
+
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
 
@@ -31,10 +35,6 @@ const Header = () => {
     };
   }, [menuOpen]);
 
-  const handleCloseMenu = () => {
-    setMenuOpen(false);
-  };
-
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
     if (latest > previous && latest > 350) {
@@ -43,6 +43,23 @@ const Header = () => {
       setHidden(false);
     }
   });
+
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
+
+    if (!href) {
+      return;
+    }
+
+    if (href.length > 1 && href.startsWith("#")) {
+      const id = href.substring(href.indexOf("#") + 1);
+      document.getElementById(id)?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
+
   return (
     <motion.header
       variants={headerVar}
@@ -52,34 +69,25 @@ const Header = () => {
       <div className="container flex justify-between">
         <div className="mr-6 flex items-center gap-3 max-lg:flex-1 xl:gap-6">
           <Logo />
-          {/*<div className="flex gap-1 rounded-xl bg-greyLight p-2 sm:flex-1">*/}
-          {/*  <img*/}
-          {/*    src={searchIcon}*/}
-          {/*    alt=""*/}
-          {/*    width={25}*/}
-          {/*    height={25}*/}
-          {/*    className="h-[25px] w-[25px]"*/}
-          {/*  />*/}
-          {/*  <input*/}
-          {/*    type="text"*/}
-          {/*    placeholder="Search"*/}
-          {/*    className="hidden flex-1 bg-greyLight text-xs outline-none sm:max-lg:block"*/}
-          {/*  />*/}
-          {/*</div>*/}
         </div>
         <nav className="hidden flex-1 items-center justify-around lg:flex">
           {navLinks.map((link) => (
             <a
               key={link.id}
-              href="#"
+              href={link.href}
               className="flex items-center gap-1 font-medium"
+              onClick={(e) => handleClick(e, link.href)}
             >
               <div className="flex flex-col items-center gap-1">
-                <div className="transition-transform duration-500">
-                  {link.title}
-                </div>
-                {link.id === 1 && (
-                  <div className="h-2 w-[200%] rounded-full bg-primary bg-gradient-to-r from-primary from-30% to-secondary" />
+                {!link.title.toLowerCase().includes("join") && (
+                  <div className="flex cursor-pointer flex-col items-center transition-transform duration-500 hover:after:block hover:after:h-1 hover:after:w-[200%] hover:after:rounded-full hover:after:bg-primary">
+                    {link.title}
+                  </div>
+                )}
+                {link.title.toLowerCase().includes("join") && (
+                  <div className="flex cursor-pointer flex-col items-center rounded-md bg-primary p-2 transition-transform duration-500 hover:scale-125">
+                    {link.title}
+                  </div>
                 )}
               </div>
               {link.hasChildren && (
@@ -88,21 +96,11 @@ const Header = () => {
             </a>
           ))}
         </nav>
-        {/*<div className="ml-6 hidden gap-3 lg:flex">*/}
-        {/*  <button className="rounded-xl border border-secondary bg-grey px-4 py-2 text-sm font-light text-secondary hover:bg-greyLight">*/}
-        {/*    Login*/}
-        {/*  </button>*/}
-        {/*  <button className="rounded-xl bg-primary px-4 py-2 text-sm font-light hover:bg-primaryVar1 focus:bg-primaryVar2">*/}
-        {/*    signup*/}
-        {/*  </button>*/}
-        {/*</div>*/}
         <button onClick={() => setMenuOpen(true)} className="lg:hidden">
           <img src={menu} alt="menu" width={36} height={36} />
         </button>
       </div>
-      <AnimatePresence>
-        {menuOpen && <MobileMenu handleCloseMenu={handleCloseMenu} />}
-      </AnimatePresence>
+      <AnimatePresence>{menuOpen && <MobileMenu />}</AnimatePresence>
     </motion.header>
   );
 };

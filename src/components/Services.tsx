@@ -1,14 +1,13 @@
-import React from "react";
-import Section from "./reusable/Section";
 import { services } from "../constants";
 import { arrowRight } from "../assets";
 
 import { motion } from "motion/react";
 import { revealVar } from "../motion/opacityReveal";
 
+
 const Services = () => {
   return (
-    <Section className="relative">
+    <section className={`md:mx-1 py-8 relative lg:py-10 xl:py-12`} id="services">
       <div className="absolute inset-0 h-1/2 w-full bg-primaryVar4 blur-[400px]" />
       <motion.div
         variants={revealVar}
@@ -39,7 +38,7 @@ const Services = () => {
           ))}
         </div>
       </motion.div>
-    </Section>
+    </section>
   );
 };
 

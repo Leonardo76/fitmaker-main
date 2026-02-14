@@ -1,5 +1,3 @@
-import React from "react";
-import Section from "./reusable/Section";
 import { heroImg } from "../assets";
 import HeroCta from "./HeroCta";
 import { stats } from "../constants";
@@ -9,10 +7,11 @@ import { revealFromRight, revealFromTop } from "../motion/hero";
 
 const Hero = () => {
   return (
-    <Section className="relative overflow-hidden">
+    <section className={`relative overflow-hidden py-8 lg:py-10 xl:py-12`}>
       <div className="absolute left-0 h-full w-[260px] -translate-x-1/2 rounded-full bg-secondaryVar3 blur-[250px]" />
       <div className="absolute right-0 h-full w-[260px] translate-x-1/2 rounded-full bg-primaryVar4 blur-[250px]" />
-      <div className="container space-y-4">
+      <div className="container space-y-4 ">
+        {/* px-4 */}
         <div className="flex shrink-0 items-center justify-between gap-1 md:gap-4 lg:gap-8">
           <div className="flex flex-col items-center gap-6 xl:gap-9">
             <motion.div
@@ -73,7 +72,7 @@ const Hero = () => {
           <HeroCta />
         </div>
       </div>
-    </Section>
+    </section>
   );
 };
 

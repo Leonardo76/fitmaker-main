@@ -1,5 +1,4 @@
-import React from "react";
-import Section from "./reusable/Section";
+
 import { plans } from "../constants";
 
 import { motion } from "motion/react";
@@ -7,7 +6,7 @@ import { revealVar } from "../motion/opacityReveal";
 
 const Plans = () => {
   return (
-    <Section>
+    <section className={`py-8 mx-1 md:mx-3 lg:py-10 xl:py-12`} id="plans">
       <motion.div
         variants={revealVar}
         initial="hidden"
@@ -84,7 +83,9 @@ const Plans = () => {
               </div>
               <div className="text-center text-lg font-bold xl:text-[28px]">
                 {plan.price} USD
-                <span className="text-lg font-medium text-greyText">/month</span>
+                <span className="text-lg font-medium text-greyText">
+                  /month
+                </span>
               </div>
               {/*<button*/}
               {/*  className={`w-full rounded-[20px] py-4 text-lg font-medium ${*/}
@@ -99,7 +100,7 @@ const Plans = () => {
           ))}
         </div>
       </motion.div>
-    </Section>
+    </section>
   );
 };
 

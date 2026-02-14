@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { arrowLeftWhite, arrowRightWhite, quote } from "../assets";
-import Section from "./reusable/Section";
 import { testimonials } from "../constants";
 
 import { motion } from "motion/react";
@@ -31,7 +30,7 @@ const Testimonials = () => {
   };
 
   return (
-    <Section>
+    <section className={`py-8 lg:py-10 xl:py-12`}>
       <motion.div
         variants={revealVar}
         initial="hidden"
@@ -39,7 +38,7 @@ const Testimonials = () => {
         viewport={{ once: true }}
         className="container space-y-4 xl:space-y-6"
       >
-        <div className="items-center justify-between max-lg:flex">
+        <div className="items-center justify-between max-lg:flex mx-1 md:mx-3">
           <h2 className="text-center text-xl font-semibold lg:text-2xl lg:font-bold xl:text-3xl">
             What Our <span className="text-primary">Customers Say</span>
           </h2>
@@ -64,12 +63,12 @@ const Testimonials = () => {
             </button>
           </div>
         </div>
-        <p className="text-center text-xs lg:text-sm xl:text-base">
+        <p className="text-center text-xs lg:text-sm xl:text-base mx-2">
           At This Part you can See Few Of The Many Positive reviews Of Our
           Customers.
         </p>
 
-        <div className="flex justify-between gap-3 lg:items-end">
+        <div className="flex justify-between gap-3 lg:items-end md:mx-3">
           <div className="flex items-center max-md:gap-2.5">
             <img
               src={displayedTestimonial.image}
@@ -132,7 +131,7 @@ const Testimonials = () => {
           ))}
         </div>
       </motion.div>
-    </Section>
+    </section>
   );
 };
 

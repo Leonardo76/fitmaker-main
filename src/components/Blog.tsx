@@ -1,5 +1,3 @@
-import React from "react";
-import Section from "./reusable/Section";
 import {
   arrowLeftWhite,
   arrowRightPrimary,
@@ -15,7 +13,7 @@ import { revealVar } from "../motion/opacityReveal";
 
 const Blog = () => {
   return (
-    <Section>
+    <section className={`py-8 lg:py-10 xl:py-12`}>
       <motion.div
         variants={revealVar}
         initial="hidden"
@@ -106,7 +104,7 @@ const Blog = () => {
           <img src={chevronRight} alt="" />
         </button>
       </motion.div>
-    </Section>
+    </section>
   );
 };
 
