@@ -8,6 +8,7 @@ import { MouseEvent } from "react";
 import { useMenuStore } from "../stores/useMenuStore";
 
 const MobileMenu = () => {
+
   const setMenuOpen = useMenuStore((state) => state.setMenuOpen);
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {

@@ -1,9 +1,12 @@
-export const headerVar = {
+import { Variants } from "motion";
+
+export const headerVar:Variants = {
   visible: { y: 0, transition: { duration: 0.35, ease: "easeInOut" } },
   hidden: { y: "-100%", transition: { duration: 0.35, ease: "easeInOut" } },
 };
 
-export const menuVar = {
+
+export const menuVar:Variants = {
   initial: {
     x: "-100%",
   },

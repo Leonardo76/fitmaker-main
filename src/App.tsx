@@ -1,16 +1,16 @@
 import { AnimatePresence, motion } from "motion/react";
-import Community from "./components/Community";
-import Faq from "./components/Faq";
-import Footer from "./components/Footer";
+import { MouseEvent, useEffect, useState } from "react";
+import { useMenuStore } from "./stores/useMenuStore";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import OurWebsite from "./components/OurWebsite";
-import Plans from "./components/Plans";
 import Services from "./components/Services";
+import Plans from "./components/Plans";
 import Testimonials from "./components/Testimonials";
 import Trainers from "./components/Trainers";
-import { MouseEvent, useEffect, useState } from "react";
-import { useMenuStore } from "./stores/useMenuStore";
+import Community from "./components/Community";
+import Faq from "./components/Faq";
+import Footer from "./components/Footer";
 
 //TODO: la BirthDate in Vivaldi icon este apropriat de mm/dd/yyyy
 //TODO: animate menu hover

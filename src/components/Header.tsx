@@ -4,19 +4,10 @@ import { navLinks } from "../constants";
 import Logo from "./reusable/Logo";
 import MobileMenu from "./MobileMenu";
 
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from "motion/react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 
 import { useMenuStore } from "../stores/useMenuStore";
-
-export const headerVar = {
-  visible: { y: 0, transition: { duration: 0.35, ease: "easeInOut" } },
-  hidden: { y: "-100%", transition: { duration: 0.35, ease: "easeInOut" } },
-};
+import { headerVar } from "../motion/header";
 
 const Header = () => {
   const menuOpen= useMenuStore(state=>state.menuOpen);

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+// import { useRef } from "react";
 // import {
 //   arrowLeftWhite,
 //   arrowRight,
@@ -12,7 +12,7 @@ import { revealVar } from "../motion/opacityReveal";
 
 const Trainers = () => {
   // const [scrollPosition, setScrollPosition] = useState(0);
-  const containerRef = useRef();
+  // const containerRef = useRef();
 
   // const amount = window.innerWidth - window.innerWidth / 2;
 
@@ -64,7 +64,7 @@ const Trainers = () => {
           At This Part you can See Some Of our Trainers And They’re Work’s.
         </p>
         <div
-          ref={containerRef}
+          // ref={containerRef}
           className="relative flex items-center justify-center gap-3 overflow-scroll scroll-smooth pb-1 no-scrollbar lg:gap-6 xl:gap-10"
         >
           {/*<div className="absolute bottom-2 left-0 h-1/3 w-1/2 rounded-full bg-primaryVar5 blur-[350px]" />*/}
