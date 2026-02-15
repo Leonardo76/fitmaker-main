@@ -1,3 +1,5 @@
+// import { DatePart } from "./types";
+
 export function capitalize(str: string) {
   // Split into words
   const words = str.split(" ");

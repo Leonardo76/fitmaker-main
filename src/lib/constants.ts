@@ -4,11 +4,9 @@ import {
   edward,
   email,
   facebook,
-  // harris,
   homeTraining,
   hTraining,
   instagram,
-  // john,
   josh,
   location,
   motivated,
@@ -19,11 +17,6 @@ import {
   service3,
   service4,
   steven,
-  // tom,
-  tool1,
-  tool2,
-  tool3,
-  tool4,
   x,
   youtube,
 } from "../assets";
@@ -121,15 +114,36 @@ export const ourWebsite = [
   },
 ];
 
-export const services = [service1, service2, service3, service4];
+export const services = [
+  {
+    image: service1,
+    text: "Poți scăpa de kilogramele nedorite folosind un plan de antrenament bine structurat, concis și special adaptat modului tău de viață și timpului de care dispui în zilele de antrenament.",
+  },
+  {
+    image: service2,
+    text: "Construiește-ți masa musculară folosind greutăți mari cu număr redus de repetări, respirația adecvată, poziția corectă de executarea exercițiului și nu în ultimul rând creează conexiunea minte-mușchi.",
+  },
+  {
+    image: service3,
+    text: `Poți opta pentru unul dintre pachetele de antrenament online, chiar din confortul propriei case. 
+Creează-ți propriul colț al casei pentru antrenament, pornești un apel video cu mine și vom începe antrenamentul rapid și eficient.`,
+  },
+  {
+    image: service4,
+    text: `Planurile mele de antrenament sunt diferite pentru fiecare persoană în parte.    
+Vrei să slăbești, să tonifiezi sau să crești în volum muscular? Cu un plan personalizat rezultatele nu vor întârzia să apară!`,
+  },
+];
 
 export const plans = [
   {
     id: 1,
-    package: "Pro Plan",
+    package: "Plan de antrenament",
     description:
-      "Our Pro Plan offers advanced workouts and personalized nutrition coaching to help you reach your goals faster. Sign Up Right Now!",
+      "Planul de antrenament oferă avantajele ... (ex: workouts and personalized nutrition coaching to help you reach your goals faster. Sign Up Right Now!)",
     features: [
+      ".................",
+      ".................",
       "Access to All Of Our Exercise Videos ",
       "Progress Tracking",
       "Supportive Online Community",
@@ -138,42 +152,107 @@ export const plans = [
       "Access to Advanced Workout Programs",
       "Body Composition Analysis",
     ],
-    price: "99",
+    price: "300 RON",
+    peLuna: "/lună",
   },
   {
     id: 2,
-    package: "Custom Plan",
+    package: `Antrenor personal`,
     description:
-      "Experience a fully tailored fitness experience with our Custom Plan. Work one-on-one with a dedicated trainer to achieve your goals.",
+      "Planul de antrenament oferă avantajele ... (ex: workouts and personalized nutrition coaching to help you reach your goals faster. Sign Up Right Now!)",
     features: [
+      ".................",
+      ".................",
       "Access to All Of Our Exercise Videos ",
       "Progress Tracking",
       "Supportive Online Community",
-      "Fully Customized Workout and Nutrition Plan",
-      "Weekly Check-ins with Your Trainer",
-      "Access to All Platform Features",
-      "Exclusive Gear Discounts",
+      "Advanced, Personalized Workout Plans",
+      "Comprehensive Nutrition Coaching",
+      "Access to Advanced Workout Programs",
+      "Body Composition Analysis",
     ],
-    price: "149",
+    price: "150 RON",
+    peLuna: "/ședință/lună",
   },
   {
     id: 3,
-    package: "Beginner Plan",
+    package: `Antrenament Mini-Grup`,
     description:
-      "Start your fitness journey with our Beginner Plan. Build a strong foundation with basic workouts and essential nutrition guidance.",
+      "Planul de antrenament oferă (3 persoane, 8 ședințe) ... (ex: workouts and personalized nutrition coaching to help you reach your goals faster. Sign Up Right Now!)",
     features: [
-      "Access to All Of Our Exercise Videos",
+      ".................",
+      ".................",
+      "Access to All Of Our Exercise Videos ",
       "Progress Tracking",
       "Supportive Online Community",
-      "Personalized Workout Plans",
-      "Basic Nutrition Guidance",
-      "Access to Group Fitness Classes",
+      "Advanced, Personalized Workout Plans",
+      "Comprehensive Nutrition Coaching",
+      "Access to Advanced Workout Programs",
+      "Body Composition Analysis",
     ],
-    price: "49",
+    price: "400 RON",
+    peLuna: "/pers./lună",
+  },
+  {
+    id: 4,
+    package: `Fitness Personal 8`,
+    description:
+      "Planul de antrenament oferă avantajele ... (ex: workouts and personalized nutrition coaching to help you reach your goals faster. Sign Up Right Now!)",
+    features: [
+      ".................",
+      ".................",
+      "Access to All Of Our Exercise Videos ",
+      "Progress Tracking",
+      "Supportive Online Community",
+      "Advanced, Personalized Workout Plans",
+      "Comprehensive Nutrition Coaching",
+      "Access to Advanced Workout Programs",
+      "Body Composition Analysis",
+    ],
+    price: "900",
+    peLuna: "/lună",
+  },
+  {
+    id: 5,
+    package: `Fitness Personal 12`,
+    description:
+      "Planul de antrenament oferă avantajele ... (ex: workouts and personalized nutrition coaching to help you reach your goals faster. Sign Up Right Now!)",
+    features: [
+      ".................",
+      ".................",
+      "Access to All Of Our Exercise Videos ",
+      "Progress Tracking",
+      "Supportive Online Community",
+      "Advanced, Personalized Workout Plans",
+      "Comprehensive Nutrition Coaching",
+      "Access to Advanced Workout Programs",
+      "Body Composition Analysis",
+    ],
+    price: "1100",
+    peLuna: "/lună",
+  },
+  {
+    id: 6,
+    package: `Fitness Personal 20`,
+    description:
+      "Planul de antrenament oferă avantajele ... (ex: workouts and personalized nutrition coaching to help you reach your goals faster. Sign Up Right Now!)",
+    features: [
+      ".................",
+      ".................",
+      "Access to All Of Our Exercise Videos ",
+      "Progress Tracking",
+      "Supportive Online Community",
+      "Advanced, Personalized Workout Plans",
+      "Comprehensive Nutrition Coaching",
+      "Access to Advanced Workout Programs",
+      "Body Composition Analysis",
+    ],
+    price: "1700",
+    peLuna: "/lună",
   },
 ];
 
-export const tools = [tool1, tool2, tool3, tool4, tool3];
+// export const tools = [tool1, tool2, tool3, tool4, tool3];
 
 export const testimonials = [
   {
@@ -205,9 +284,13 @@ export const testimonials = [
 export const trainers = [
   {
     id: 1,
-    name: "Sam Cole",
-    role: "Personal Trainer",
+    name: "Eduard Bălăiță (32 de ani)",
+    role: "Antrenor Personal",
     image: sam,
+    about: `    Sunt fost sportiv de performanță (campion național la lupte libere). De la vârsta de 18 ani sunt antrenor personal.
+    Absolvent al școlii de antrenori ”Master Class București”, am studiat la specializarea instructor de fitness, de aerobic, dar și cea de antrenor personal.
+    Ulterior, m-am specializat în hidroterapie (recuperare medicală acvatică), am absolvit un curs de instructor de natație și un curs de AQUA GYM.
+    În urma celor 14 ani de activitate zilnică în sălile sportive, am reușit să motivez mulți oameni încercând să le îmbunătățesc modul de viață prin propriul meu exemplu.`,
   },
   // {
   //   id: 2,
@@ -267,7 +350,7 @@ export const blogPosts = [
   },
 ];
 
-export const communityBenefits = [];
+// export const communityBenefits = [];
 
 export const faq = [
   {
@@ -345,3 +428,5 @@ export const contactInfo = [
     info: "Fitmakerrr@Gmail.com",
   },
 ];
+
+export const birthDatePlaceholders = ["ziua", "luna", "anul"];

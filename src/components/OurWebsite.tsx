@@ -1,4 +1,4 @@
-import { ourWebsite } from "../constants";
+import { ourWebsite } from "../lib/constants";
 import { Fragment } from "react";
 
 import { motion } from "motion/react";

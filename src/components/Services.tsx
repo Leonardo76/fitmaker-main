@@ -1,14 +1,15 @@
-import { services } from "../constants";
-import { arrowRight } from "../assets";
+import { services } from "../lib/constants";
 
 import { motion } from "motion/react";
 import { revealVar } from "../motion/opacityReveal";
 
-
 const Services = () => {
   return (
-    <section className={`md:mx-1 py-8 relative lg:py-10 xl:py-12`} id="services">
-      <div className="absolute inset-0 h-1/2 w-full bg-primaryVar4 blur-[400px]" />
+    <section
+      className={`md:mx-1 py-8 relative lg:py-10 xl:py-12`}
+      id="services"
+    >
+      <div className="absolute inset-0 h-1/4 w-full bg-primaryVar4 blur-[400px]" />
       <motion.div
         variants={revealVar}
         initial="hidden"
@@ -26,13 +27,15 @@ const Services = () => {
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service, i) => (
             <div key={i} className="relative">
-              <img src={service} alt="" className="w-full" />
-              <button className="absolute bottom-6 left-6 flex items-center gap-1">
+              <img src={service.image} alt="" className="w-full" />
+              <button className="absolute top-22 lg:top-18 left-6 md:left-10 lg:left-5 flex items-center gap-1">
                 <div className="absolute left-0 size-5 rounded-full bg-primaryVar5 blur-[10px]" />
-                <div className="md:font-regular relative text-lg font-medium md:text-xs xl:text-sm">
-                  <p> Learn More</p>
+                <div className="md:font-regular relative text-lg font-medium md:text-xs xl:text-sm text-left w-[22ch] md:w-[25ch] lg:w-[22ch]">
+                  <p className="text-[16px] lg:text-[14px] md:whitespace-pre-wrap">
+                    {service.text}
+                  </p>
                 </div>
-                <img src={arrowRight} alt="-" />
+                {/*<img src={arrowRight} alt="-" />*/}
               </button>
             </div>
           ))}

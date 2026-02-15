@@ -1,8 +1,6 @@
-
-import { plans } from "../constants";
-
 import { motion } from "motion/react";
 import { revealVar } from "../motion/opacityReveal";
+import { plans } from "../lib/constants";
 
 const Plans = () => {
   return (
@@ -48,9 +46,9 @@ const Plans = () => {
                     plan.id === 2 ? "text-primary" : "text-secondary"
                   }`}
                 >
-                  Package
+                  Pachet
                 </p>
-                <div className="font-gagalin text-2xl xl:text-[32px]">
+                <div className="font-gagalin text-2xl xl:text-[32px] whitespace-pre-wrap text-wrap">
                   {plan.package}
                 </div>
               </div>
@@ -61,7 +59,7 @@ const Plans = () => {
                     plan.id === 2 ? "text-primary" : "text-secondary"
                   }`}
                 >
-                  Description
+                  Descriere
                 </p>
                 <p className="text-xs xl:text-sm">{plan.description}</p>
               </div>
@@ -71,7 +69,7 @@ const Plans = () => {
                     plan.id === 2 ? "text-primary" : "text-secondary"
                   }`}
                 >
-                  Features
+                  Include
                 </p>
                 <ul className="text-xs xl:text-sm">
                   {plan.features.map((feature, i) => (
@@ -82,9 +80,9 @@ const Plans = () => {
                 </ul>
               </div>
               <div className="text-center text-lg font-bold xl:text-[28px]">
-                {plan.price} USD
+                {plan.price}
                 <span className="text-lg font-medium text-greyText">
-                  /month
+                  {plan.peLuna}
                 </span>
               </div>
               {/*<button*/}
@@ -99,6 +97,14 @@ const Plans = () => {
             </div>
           ))}
         </div>
+        <p className="text-xs lg:text-sm xl:text-base">
+          <strong>
+            <u>Observație</u>
+          </strong>
+          : Pe lângă prețul abonamentului, clientul va plăti abonamentul lunar
+          pentru accesul în sală - Alpha Gym (Cartierul Latin, Prelungirea
+          Ghencea) sau Nr.1 Fitness (Dimri Residence, Prelungirea Ghencea).
+        </p>
       </motion.div>
     </section>
   );

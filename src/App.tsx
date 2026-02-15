@@ -12,13 +12,6 @@ import Community from "./components/Community";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 
-//TODO: la BirthDate in Vivaldi icon este apropriat de mm/dd/yyyy
-//TODO: animate menu hover
-//TODO: Join Our Fitness Community nu imi place ultimul paragraf (sa il fac centrat??)
-//TODO: sa pun titlu la form
-//TODO: padding top mai mare la send email
-//TODO: callback la Start your journey si la Explore Programs
-
 function App() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const menuOpen = useMenuStore((state) => state.menuOpen);
@@ -75,7 +68,7 @@ function App() {
             whileTap={{ scale: 1 }}
           >
             <span className="rotate-180 tracking-tight [writing-mode:vertical-lr]">
-              <a href="#" onClick={handleClick} className="text-red-700">
+              <a href="#" onClick={handleClick} className="text-red-400">
                 Scroll to top
               </a>
             </span>

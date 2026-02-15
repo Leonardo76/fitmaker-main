@@ -1,5 +1,5 @@
 import { close } from "../assets";
-import { navLinks } from "../constants";
+import { navLinks } from "../lib/constants";
 import { menuVar } from "../motion/header";
 import Logo from "./reusable/Logo";
 
@@ -8,7 +8,6 @@ import { MouseEvent } from "react";
 import { useMenuStore } from "../stores/useMenuStore";
 
 const MobileMenu = () => {
-
   const setMenuOpen = useMenuStore((state) => state.setMenuOpen);
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -51,7 +50,8 @@ const MobileMenu = () => {
             onClick={(e) => handleClick(e, link.href)}
           >
             {!link.title.toLowerCase().includes("join") && (
-              <div className="flex cursor-pointer flex-col items-center transition-transform duration-500 hover:after:block hover:after:h-1 hover:after:w-[200%] hover:after:rounded-full hover:after:bg-primary">
+              // <div className="flex cursor-pointer flex-col items-center transition-transform duration-500 hover:after:block hover:after:h-1 hover:after:w-[200%] hover:after:rounded-full hover:after:bg-primary">
+              <div className="flex cursor-pointer flex-col items-center after:content-[''] after:block after:h-1 after:w-0 hover:after:w-[200%] after:rounded-full after:bg-primary after:transition-all  after:duration-300  after:ease-in-out">
                 {link.title}
               </div>
             )}

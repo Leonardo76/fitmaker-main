@@ -1,16 +1,21 @@
 import { MouseEvent, useEffect, useState } from "react";
 import { chevronDown, menu } from "../assets";
-import { navLinks } from "../constants";
+import { navLinks } from "../lib/constants";
 import Logo from "./reusable/Logo";
 import MobileMenu from "./MobileMenu";
 
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "motion/react";
 
 import { useMenuStore } from "../stores/useMenuStore";
 import { headerVar } from "../motion/header";
 
 const Header = () => {
-  const menuOpen= useMenuStore(state=>state.menuOpen);
+  const menuOpen = useMenuStore((state) => state.menuOpen);
   const setMenuOpen = useMenuStore((state) => state.setMenuOpen);
 
   const [hidden, setHidden] = useState(false);
@@ -50,7 +55,6 @@ const Header = () => {
     }
   };
 
-
   return (
     <motion.header
       variants={headerVar}
@@ -69,9 +73,11 @@ const Header = () => {
               className="flex items-center gap-1 font-medium"
               onClick={(e) => handleClick(e, link.href)}
             >
-              <div className="flex flex-col items-center gap-1">
+              {/*<div className="flex flex-col items-center gap-1">*/}
+              <div className="flex flex-col items-center gap-1 ">
                 {!link.title.toLowerCase().includes("join") && (
-                  <div className="flex cursor-pointer flex-col items-center transition-transform duration-500 hover:after:block hover:after:h-1 hover:after:w-[200%] hover:after:rounded-full hover:after:bg-primary">
+                  // <div className="flex cursor-pointer flex-col items-center transition-transform duration-500 hover:after:block hover:after:h-1 hover:after:w-[200%] hover:after:rounded-full hover:after:bg-primary">
+                  <div className="flex cursor-pointer flex-col items-center after:content-[''] after:block after:h-1 after:w-0 hover:after:w-[200%] after:rounded-full after:bg-primary after:transition-all  after:duration-300  after:ease-in-out">
                     {link.title}
                   </div>
                 )}

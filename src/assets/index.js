@@ -22,6 +22,9 @@ import email from "./icons/email.svg";
 import phone from "./icons/phone.svg";
 import location from "./icons/location.svg";
 import close from "./icons/close.svg";
+import gender from "./icons/gender.svg";
+import birthDate from "./icons/date-of-birth.svg";
+import fitness from "./icons/fitness.svg";
 
 import heroImg from "./images/heroImg.png";
 import service1 from "./images/service1.png";
@@ -91,4 +94,7 @@ export {
   email,
   phone,
   close,
+  gender,
+  birthDate,
+  fitness,
 };

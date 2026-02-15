@@ -7,13 +7,13 @@ type ErrorStateType = {
   lastNameError: string;
   emailError: string;
   // genderError: string;
-  // birthDateError: string;
+  birthDateError: string;
   goalError: string;
   setFirstNameError: (firstNameError: string) => void;
   setLastNameError: (lastNameError: string) => void;
   setEmailError: (emailError: string) => void;
   // setGenderError: (genderError: string) => void; //
-  // setBirthDateError: (birthDateError: string) => void; //
+  setBirthDateError: (birthDateError: string) => void; //
   setGoalError: (goalError: string) => void;
 };
 
@@ -40,11 +40,11 @@ export const useErrorStore = create<ErrorStateType>()(
       //   set((state) => {
       //     state.genderError = genderError;
       //   }),
-      // birthDateError: "",
-      // setBirthDateError: (birthDateError: string) =>
-      //   set((state) => {
-      //     state.birthDateError = birthDateError;
-      //   }),
+      birthDateError: "",
+      setBirthDateError: (birthDateError: string) =>
+        set((state) => {
+          state.birthDateError = birthDateError;
+        }),
       // goalError: "",
       // setGoalError: (goalError: string) =>
       //   set((state) => {

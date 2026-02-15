@@ -4,7 +4,7 @@ import {
   programsLinks,
   resourcesLinks,
   socialIcons,
-} from "../constants";
+} from "../lib/constants";
 import Logo from "./reusable/Logo";
 
 const Footer = () => {

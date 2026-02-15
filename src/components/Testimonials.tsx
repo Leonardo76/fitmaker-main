@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { arrowLeftWhite, arrowRightWhite, quote } from "../assets";
-import { testimonials } from "../constants";
+import { testimonials } from "../lib/constants";
 
 import { motion } from "motion/react";
 import { revealVar } from "../motion/opacityReveal";

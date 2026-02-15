@@ -1,18 +1,19 @@
-import { ChangeEvent,  } from "react";
+import { ChangeEvent } from "react";
 import { capitalize } from "../../lib/utils";
 import { GenderType } from "../../lib/types";
 import { useEmailStore } from "../../stores/useEmailStore";
 
 type InputSelectOptionsType = {
   labelText: string;
+  image?: {};
   options?: string[];
 };
 
 export const InputSelect = ({
   labelText,
+  image,
   options = ["masculin", "feminin"],
 }: InputSelectOptionsType) => {
-
   const setSex = useEmailStore((state) => state.setSex);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -27,6 +28,7 @@ export const InputSelect = ({
         {/*{mesajEroare !== "" && <p className="text-red-400">{mesajEroare}</p>}*/}
       </div>
       <div className="flex items-center gap-1 rounded border-2 border-white px-1 py-2">
+        <img src={image as string} alt="-" />
         <select
           name="gender"
           id="gender"

@@ -1,6 +1,6 @@
 import { heroImg } from "../assets";
 import HeroCta from "./HeroCta";
-import { stats } from "../constants";
+import { stats } from "../lib/constants";
 
 import { motion } from "motion/react";
 import { revealFromRight, revealFromTop } from "../motion/hero";
@@ -24,7 +24,7 @@ const Hero = () => {
                 Achive Your
               </div>
               <div className="font-gagalin text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
                   Fitness Goals
                 </span>
               </div>

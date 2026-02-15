@@ -16,30 +16,28 @@ export const InputTextarea = ({
   image,
   placeholder,
 }: InputTextareaProps) => {
-
   const setGoal = useEmailStore((state) => state.setGoal);
 
   const goalError = useErrorStore((state) => state.goalError);
   const setGoalError = useErrorStore((state) => state.setGoalError);
-
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
 
     const value = (e.target as HTMLTextAreaElement).value.trim();
 
-    setGoalError('');
-    setGoal('');
+    setGoalError("");
+    setGoal("");
 
-    if (value==='') {
+    if (value === "") {
       return;
     }
 
-    const validationSchema=ValidationSchemas.goal;
-    const validateInput=validationSchema.safeParse(value);
-    if(!validateInput.success){
+    const validationSchema = ValidationSchemas.goal;
+    const validateInput = validationSchema.safeParse(value);
+    if (!validateInput.success) {
       //validation failed
-      const mesaj=z.treeifyError(validateInput.error).errors[0];
+      const mesaj = z.treeifyError(validateInput.error).errors[0];
 
       setGoalError(mesaj);
       return;
@@ -60,6 +58,7 @@ export const InputTextarea = ({
         <textarea
           className={`flex-1 resize-none bg-primaryVar3 px-2 text-[10px] outline-none`}
           placeholder={placeholder}
+          name={labelText}
           rows={3}
           cols={20}
           wrap="soft"

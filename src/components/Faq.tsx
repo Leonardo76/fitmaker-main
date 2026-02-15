@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { faqClose, faqOpen } from "../assets";
-import { faq } from "../constants";
+import { faq } from "../lib/constants";
 
 import { motion } from "motion/react";
 import { revealVar } from "../motion/opacityReveal";

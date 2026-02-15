@@ -1,6 +1,15 @@
+import { MouseEvent } from "react";
 import { motion } from "motion/react";
 import { revealVar } from "../motion/opacityReveal";
 const HeroCta = () => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>, id: string) => {
+    event.preventDefault();
+
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   return (
     <motion.div
       variants={revealVar}
@@ -15,10 +24,18 @@ const HeroCta = () => {
         change?"
       </div>
       <div className="flex items-center justify-between gap-3">
-        <button className="w-full rounded-xl bg-primary py-3 text-sm font-light lg:rounded-2xl lg:text-base lg:font-medium xl:rounded-[20px] xl:text-lg">
+        <button
+          className="w-full rounded-xl bg-primary py-3 text-sm font-light lg:rounded-2xl lg:text-base lg:font-medium xl:rounded-[20px] xl:text-lg"
+          onClick={(event) => handleClick(event, "join")}
+        >
+          {/*join*/}
           Start Your Journey
         </button>
-        <button className="w-full rounded-xl border border-secondary bg-transparent py-3 text-sm font-light text-secondary lg:rounded-2xl lg:text-base lg:font-medium xl:rounded-[20px] xl:text-lg">
+        <button
+          className="w-full rounded-xl border border-secondary bg-transparent py-3 text-sm font-light text-secondary lg:rounded-2xl lg:text-base lg:font-medium xl:rounded-[20px] xl:text-lg"
+          onClick={(event) => handleClick(event, "services")}
+        >
+          {/*services*/}
           Explore Programs
         </button>
       </div>

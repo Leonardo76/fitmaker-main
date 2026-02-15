@@ -6,7 +6,7 @@ import {
   chevronRight,
   postCategory,
 } from "../assets";
-import { blogPosts } from "../constants";
+import { blogPosts } from "../lib/constants";
 
 import { motion } from "motion/react";
 import { revealVar } from "../motion/opacityReveal";

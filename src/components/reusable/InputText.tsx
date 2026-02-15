@@ -99,6 +99,7 @@ export const InputText = ({
         <img src={image as string} alt="-" />
         <input
           type="text"
+          name={labelText}
           className={`bg-primaryVar3 px-2 text-[10px] outline-none`}
           placeholder={placeholder}
           onChange={handleChange}
@@ -107,4 +108,3 @@ export const InputText = ({
     </label>
   );
 };
-

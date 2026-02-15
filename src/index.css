@@ -23,6 +23,15 @@
     --vazirmatn: "Vazirmatn";
     --gagalin: "Gagalin";
 }
+@utility top-minus-* {
+    /*top: calc(100vh - var(--spacing) * --value(integer)); !* handle numbers e.g. h-screen-minus-12 *!*/
+    top: calc(50% - --value([length])); /* handle arbitrary values e.g. h-screen-minus-[20px] */
+}
+
+@utility top-plus-* {
+    /*top: calc(100vh - var(--spacing) * --value(integer)); !* handle numbers e.g. h-screen-minus-12 *!*/
+    top: calc(50% + --value([length])); /* handle arbitrary values e.g. h-screen-minus-[20px] */
+}
 
 @font-face {
     font-family: "Vazirmatn";
@@ -44,3 +53,25 @@ html {
     @apply mx-auto px-4 md:px-2 xl:max-w-7xl;
 }
 
+/* for birthDate input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+
+/* used in Trainer.tsx */
+/*.no-scrollbar::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
+
+/*.no-scrollbar {*/
+/*    -ms-overflow-style: none;*/
+/*    scrollbar-width: none;*/
+/*}*/

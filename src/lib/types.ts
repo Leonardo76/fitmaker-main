@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { CSSProperties } from "react";
 
 export type EmailOptionsType = {
   firstName: string;
@@ -22,5 +23,19 @@ export const ValidationSchemas = {
   email: z.email("Introduceti o adresa de email valida"),
   goal: z.string().trim().min(5, "Trebuie cel putin 5 litere"),
   // sex: z.literal(["masculin", "feminin"]),
-  birthDate: z.date(),
+  birthDate: z.coerce
+    .date()
+    .min(new Date(new Date().setFullYear(new Date().getFullYear() - 100)), {
+      message: "Nu mai batran de 100 de ani",
+    })
+    .max(new Date(), { message: "Doar persoane deja nascute" }),
 };
+
+export interface DatePickerOptions {
+  placeHolders?: string[];
+  style?: CSSProperties;
+  inputStyle?: CSSProperties;
+  className?: string;
+  onChange?: (value: string | null) => void;
+  value?: [string, string, string];
+}
