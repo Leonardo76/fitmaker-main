@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { KeyboardEvent, RefObject, useEffect, useRef, useState } from "react";
 import { birthDatePlaceholders } from "../../lib/constants";
-import Input from "./Input";
+import InputPicker from "./InputPicker";
 
 import { DatePickerOptions } from "../../lib/types";
 
@@ -11,6 +11,10 @@ const Picker = ({
   onChange,
   ...props
 }: DatePickerOptions) => {
+  // const input1Ref = useRef<HTMLInputElement | null>(null);
+  // const input2Ref = useRef<HTMLInputElement | null>(null);
+  // const input3Ref = useRef<HTMLInputElement | null>(null);
+
   const [day, setDay] = useState<string>("");
   const [month, setMonth] = useState<string>("");
   const [year, setYear] = useState<string>("");
@@ -62,35 +66,66 @@ const Picker = ({
         break;
     }
   };
+
+  const handleKeyDown = (
+    event: KeyboardEvent<HTMLInputElement>,
+    inputRef: RefObject<HTMLInputElement>,
+    nextInputRef: RefObject<HTMLInputElement>,
+    prevInputRef: RefObject<HTMLInputElement>,
+  ) => {
+    if (
+      event.key === "ArrowRight" &&
+      inputRef.current &&
+      inputRef.current.selectionStart === inputRef.current.value.length
+    ) {
+      nextInputRef.current?.focus();
+      nextInputRef.current?.setSelectionRange(0, 0); // Setează cursorul la început
+      event.preventDefault();
+    } else if (
+      event.key === "ArrowLeft" &&
+      inputRef.current &&
+      inputRef.current.selectionStart === 0
+    ) {
+      prevInputRef.current?.focus();
+      prevInputRef.current?.setSelectionRange(
+        prevInputRef.current.value.length,
+        prevInputRef.current.value.length,
+      ); // Setează cursorul la sfârșit
+      //event.preventDefault();
+    }
+  };
   return (
     <div
       className={`inline-block overflow-hidden ${className}`}
       style={props.style}
     >
       <div className={"w-full flex flex-row"}>
-        <Input
+        <InputPicker
           ref={dayRef}
           handleChange={handleChange}
           value={day}
           style={props.inputStyle}
           placeholder={placeHolders[0]}
           name={"rbday"}
+          onKeyDown={(event) => handleKeyDown(event, dayRef, monthRef, yearRef)}
         />
-        <Input
+        <InputPicker
           ref={monthRef}
           handleChange={handleChange}
           value={month}
           style={props.inputStyle}
           placeholder={placeHolders[1]}
           name={"rbmonth"}
+          onKeyDown={(event) => handleKeyDown(event, monthRef, yearRef, dayRef)}
         />
-        <Input
+        <InputPicker
           ref={yearRef}
           handleChange={handleChange}
           value={year}
           style={props.inputStyle}
           placeholder={placeHolders[2]}
           name={"rbyear"}
+          onKeyDown={(event) => handleKeyDown(event, yearRef, dayRef, monthRef)}
         />
       </div>
     </div>

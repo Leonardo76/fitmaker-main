@@ -4,7 +4,7 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
   handleChange: (value: string, name: string) => void;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+const InputPicker = forwardRef<HTMLInputElement, InputProps>(
   ({ style, handleChange, ...props }, ref) => {
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
@@ -32,4 +32,4 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   },
 );
 
-export default Input;
+export default InputPicker;

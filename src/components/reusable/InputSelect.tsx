@@ -22,7 +22,7 @@ export const InputSelect = ({
   };
 
   return (
-    <label className={`space-y-2 font-medium`}>
+    <label className={`space-y-2 font-medium `}>
       <div className="flex justify-between">
         {labelText}
         {/*{mesajEroare !== "" && <p className="text-red-400">{mesajEroare}</p>}*/}
@@ -32,7 +32,7 @@ export const InputSelect = ({
         <select
           name="gender"
           id="gender"
-          className="flex-1 appearance-none bg-primaryVar3 dark:bg-primaryVar3"
+          className="flex-1 appearance-none bg-primaryVar3 dark:bg-primaryVar3 focus:outline-none focus:text-red-200 "
           required
           defaultValue={""}
           onChange={handleChange}
