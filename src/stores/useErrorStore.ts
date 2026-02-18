@@ -45,11 +45,11 @@ export const useErrorStore = create<ErrorStateType>()(
         set((state) => {
           state.birthDateError = birthDateError;
         }),
-      // goalError: "",
-      // setGoalError: (goalError: string) =>
-      //   set((state) => {
-      //     state.goalError = goalError;
-      //   }),
+      goalError: "",
+      setGoalError: (goalError: string) =>
+        set((state) => {
+          state.goalError = goalError;
+        }),
     })),
   ),
 );

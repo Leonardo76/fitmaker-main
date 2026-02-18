@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { InputSwitcherProps } from "../types/types";
+
 import {
   getMaxDays,
   getNewValueForDay,
@@ -14,9 +14,37 @@ import {
   getNewValueForYear,
   getOldDateString,
 } from "../utils/utils";
-import CalendarControl from "./ui/CalendarControl";
-import { birthDate } from "../assets";
-import ButtonControl from "./ui/ButtonControl";
+import Calendar from "./ui/Calendar";
+import Button from "./ui/Button";
+import {
+  calendarBackgroundColor,
+  calendarBorderColor,
+  DAY,
+  MONTH,
+  YEAR,
+} from "../lib/constants";
+import { calendar } from "../assets";
+
+type TimeFields = typeof DAY | typeof MONTH | typeof YEAR;
+
+type ValidFormats =
+  | [typeof DAY, typeof MONTH, typeof YEAR]
+  | [typeof DAY, typeof YEAR, typeof MONTH]
+  | [typeof MONTH, typeof DAY, typeof YEAR]
+  | [typeof MONTH, typeof YEAR, typeof DAY]
+  | [typeof YEAR, typeof DAY, typeof MONTH]
+  | [typeof YEAR, typeof MONTH, typeof DAY];
+
+export type InputSwitcherProps = {
+  minYear: number;
+  maxYear?: number;
+  classNameContainer?: string;
+  classNameDay?: string;
+  classNameMonth?: string;
+  classNameYear?: string;
+  dateFormat?: ValidFormats;
+  useCalendar?: boolean;
+};
 
 const DateChooser = ({
   minYear,
@@ -25,6 +53,8 @@ const DateChooser = ({
   classNameDay,
   classNameMonth,
   classNameYear,
+  dateFormat = [DAY, MONTH, YEAR],
+  useCalendar = true,
 }: InputSwitcherProps) => {
   const inputDayRef = useRef<HTMLInputElement | null>(null);
   const inputMonthRef = useRef<HTMLInputElement | null>(null);
@@ -85,7 +115,7 @@ const DateChooser = ({
       setIsCalendarOpen(false);
     } else if (event.key === "Enter") {
       event.preventDefault();
-      setIsCalendarOpen(true);
+      setIsCalendarOpen(useCalendar && true);
     }
   };
 
@@ -144,7 +174,7 @@ const DateChooser = ({
       setIsCalendarOpen(false);
     } else if (event.key === "Enter") {
       event.preventDefault();
-      setIsCalendarOpen(true);
+      setIsCalendarOpen(useCalendar && true);
     } else if (event.key === "Tab") {
       if (event.shiftKey) {
         if (prevInputRef !== inputYearRef) {
@@ -298,67 +328,79 @@ const DateChooser = ({
     inputRef.current.setSelectionRange(0, 0); // Poziționează cursorul la începutul textului
   };
 
+  const inputMapping: {
+    [key in TimeFields]: React.RefObject<HTMLInputElement>;
+  } = {
+    [DAY]: inputDayRef,
+    [MONTH]: inputMonthRef,
+    [YEAR]: inputYearRef,
+  };
+
+  const handleKeyDownWrapper = (
+    event: KeyboardEvent<HTMLInputElement>,
+    field: TimeFields,
+  ) => {
+    const index = dateFormat.indexOf(field);
+
+    const nextIndex = (index + 1) % dateFormat.length;
+    const nextField = dateFormat[nextIndex];
+
+    const prevIndex = (index + dateFormat.length - 1) % dateFormat.length;
+    const prevField = dateFormat[prevIndex];
+
+    handleKeyDown(
+      event,
+      inputMapping[field],
+      inputMapping[nextField],
+      inputMapping[prevField],
+    );
+  };
   return (
     <div className={`relative ${classNameContainer}`}>
       <div className="flex gap-2 flex-col justify-center align-middle items-center">
         <div className="flex  items-center">
           <div className="flex w-full ">
-            <input
-              type="text"
-              ref={inputDayRef}
-              placeholder="Day (01-31)"
-              value={day}
-              className={"w-full text-center outline-none " + classNameDay}
-              onChange={(e) => handleChange(e, inputDayRef)}
-              onKeyDown={(event) =>
-                handleKeyDown(event, inputDayRef, inputMonthRef, inputYearRef)
-              }
-              onFocus={() => handleFocus(inputDayRef)}
-            />
-            <input
-              type="text"
-              ref={inputMonthRef}
-              placeholder="Month (01-12)"
-              value={month}
-              className={"w-full text-center outline-none " + classNameMonth}
-              onChange={(e) => handleChange(e, inputMonthRef)}
-              onKeyDown={(event) =>
-                handleKeyDown(event, inputMonthRef, inputYearRef, inputDayRef)
-              }
-              onFocus={() => handleFocus(inputMonthRef)}
-            />
-            <input
-              type="text"
-              ref={inputYearRef}
-              placeholder="Year (ex. 2021)"
-              value={year}
-              className={"w-full text-center outline-none " + classNameYear}
-              onChange={(e) => handleChange(e, inputYearRef)}
-              onKeyDown={(event) =>
-                handleKeyDown(event, inputYearRef, inputDayRef, inputMonthRef)
-              }
-              onFocus={() => handleFocus(inputYearRef)}
-            />
+            {dateFormat.map((field) => (
+              <input
+                key={field}
+                type="text"
+                ref={inputMapping[field]}
+                placeholder={
+                  field === DAY
+                    ? "Day (01-31)"
+                    : field === MONTH
+                      ? "Month (01-12)"
+                      : `Year (${minYear.toString()})-${maxYear.toString()}`
+                }
+                value={field === DAY ? day : field === MONTH ? month : year}
+                className={`w-full text-center outline-none ${field === DAY ? classNameDay : field === MONTH ? classNameMonth : classNameYear}`}
+                onChange={(e) => handleChange(e, inputMapping[field])}
+                onKeyDown={(event) => handleKeyDownWrapper(event, field)}
+                onFocus={() => handleFocus(inputMapping[field])}
+              />
+            ))}
           </div>
-          <ButtonControl
+          <Button
             type="button"
             variant="icon"
             size="icon"
-            onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+            onClick={() => setIsCalendarOpen(useCalendar && !isCalendarOpen)}
             className={
-              isCalendarOpen ? "border border-white scale-125 p-1" : ""
+              isCalendarOpen ? "scale-125 border-l border-r border-white" : ""
             }
             onKeyDown={handleButtonKeyDown}
           >
-            <img src={birthDate as string} alt="" className="" />
-          </ButtonControl>
+            {useCalendar && (
+              <img src={calendar as string} alt="" className="" />
+            )}
+          </Button>
         </div>
       </div>
 
       {isCalendarOpen && (
-        <CalendarControl
+        <Calendar
           ref={calendarRef}
-          classNames="absolute top-full mt-2 z-50 bg-primaryVar3 border border-secondaryVar3 rounded-lg shadow-lg p-4 w-72 w-full lg:w-fit"
+          calendarClasses={`absolute top-full mt-2 z-50 rounded-lg shadow-lg p-4 w-72 w-full lg:w-fit border ${calendarBorderColor} ${calendarBackgroundColor}`}
           selectedDate={getOldDateString(year, month, day)}
           onSelect={handleCalendarSelect}
           minYear={minYear}

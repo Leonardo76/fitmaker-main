@@ -1,11 +1,11 @@
-import { mail, user, gender, birthDate, fitness } from "../assets";
+import { mail, user, gender, fitness } from "../assets";
 import { MouseEvent } from "react";
 import { InputText } from "./reusable/InputText";
 import { InputSelect } from "./reusable/InputSelect";
 import InputDate from "./reusable/InputDate";
 import { InputTextarea } from "./reusable/InputTextarea";
 
-//DE IMPLEMENTAT ZOD
+//TODO:DE IMPLEMENTAT ZOD
 
 // const param: EmailOptionsType = {
 //   firstName: "Leonardo",
@@ -62,7 +62,7 @@ export const EmailForm = () => {
         />
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:gap-4">
           <InputSelect labelText="Gender" image={gender} />
-          <InputDate labelText="Birth Date" image={birthDate} />
+          <InputDate labelText="Birth Date" />
         </div>
         <InputTextarea
           labelText="What is your goal?"

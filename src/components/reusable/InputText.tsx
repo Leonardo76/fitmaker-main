@@ -91,16 +91,18 @@ export const InputText = ({
 
   return (
     <label className={`space-y-2 font-medium`}>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         {labelText}
-        {mesajEroare !== "" && <p className="text-red-400">{mesajEroare}</p>}
+        {mesajEroare !== "" && (
+          <p className="text-red-400 text-xs">{mesajEroare}</p>
+        )}
       </div>
       <div className="flex items-center gap-1 rounded border-2 border-white px-1 py-2">
         <img src={image as string} alt="-" />
         <input
           type="text"
           name={labelText}
-          className={`bg-primaryVar3 px-2 text-[10px] outline-none`}
+          className={`w-full bg-primaryVar3 px-2  outline-none focus:border-r`}
           placeholder={placeholder}
           onChange={handleChange}
         />

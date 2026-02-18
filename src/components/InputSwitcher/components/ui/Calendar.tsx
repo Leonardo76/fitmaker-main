@@ -1,5 +1,4 @@
-import ButtonControl from "./ButtonControl";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Button from "./Button";
 import { Ref, useEffect, useState } from "react";
 import {
   disabledDayBackgroundColor,
@@ -30,9 +29,8 @@ import {
   weekDaysTextColor,
 } from "../../lib/constants";
 
-import { FirstDayOfWeek } from "../../types/types";
 import { getMonthAndYear, getOldDate } from "../../utils/utils";
-import cn from "classnames";
+import classNames from "classnames";
 
 interface CalendarProps {
   selectedDate: Date;
@@ -40,18 +38,20 @@ interface CalendarProps {
   minYear: number;
   maxYear: number;
   onClose: () => void;
-  classNames?: string;
+  calendarClasses?: string;
   ref?: Ref<HTMLDivElement>;
   firstDayOfWeek?: FirstDayOfWeek;
 }
 
-const CalendarControl = ({
+export type FirstDayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6; // 0 = Sunday, 1 = Monday, etc.
+
+const Calendar = ({
   selectedDate,
   onSelect,
   minYear,
   maxYear,
   onClose,
-  classNames,
+  calendarClasses,
   ref,
   firstDayOfWeek = 0,
 }: CalendarProps) => {
@@ -127,15 +127,14 @@ const CalendarControl = ({
   const emptyCells = (firstDayOfMonth - firstDayOfWeek + 7) % 7;
 
   return (
-    <div className={classNames} ref={ref}>
+    <div className={calendarClasses} ref={ref}>
       <div className="flex items-center justify-between mb-4">
-        <ButtonControl
+        <Button
           variant="empty"
           size="icon"
           onClick={handlePrevMonth}
           disabled={currentYear === minYear && currentMonth === 0}
-          // className="h-8 w-8 hover:bg-blue-400"
-          className={cn(
+          className={classNames(
             "h-8 w-8",
             previewsMonthTextColor,
             previewsMonthTextColorHover,
@@ -144,18 +143,28 @@ const CalendarControl = ({
           )}
         >
           {/* classes for prev < */}
-          <ChevronLeft className={"h-4 w-4"} />
-        </ButtonControl>
+          <svg
+            className="h-4 w-4"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z"
+              className="fill-current"
+            />
+          </svg>
+        </Button>
         {/*//classes for calendar title. ex: January 2026*/}
         <div className={`font-semibold ${monthTextColor}`}>
           {getMonthAndYear(currentYear, currentMonth, 1).toString()}
         </div>
-        <ButtonControl
+        <Button
           variant="empty"
           size="icon"
           onClick={handleNextMonth}
           disabled={currentYear === maxYear && currentMonth === 11}
-          className={cn(
+          className={classNames(
             "h-8 w-8",
             nextMonthTextColor,
             nextMonthTextColorHover,
@@ -164,8 +173,18 @@ const CalendarControl = ({
           )}
         >
           {/* classes for next > */}
-          <ChevronRight className={"h-4 w-4"} />
-        </ButtonControl>
+          <svg
+            className="h-4 w-4"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
+              className="fill-current"
+            />
+          </svg>
+        </Button>
       </div>
 
       <div className="grid grid-cols-7 gap-1 mb-2">
@@ -196,7 +215,7 @@ const CalendarControl = ({
               key={day}
               onClick={() => !disabled && handleDateClick(day)}
               disabled={disabled}
-              className={cn(
+              className={classNames(
                 "h-8 w-8 rounded-md text-sm font-medium transition-colors",
                 selected
                   ? [
@@ -242,4 +261,4 @@ const CalendarControl = ({
   );
 };
 
-export default CalendarControl;
+export default Calendar;

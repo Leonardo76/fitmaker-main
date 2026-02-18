@@ -1,6 +1,6 @@
-import * as React from "react";
+import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?:
     | "default"
     | "destructive"
@@ -11,10 +11,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | "link"
     | "icon";
   size?: "default" | "sm" | "lg" | "icon";
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
-const ButtonControl = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     { className, variant = "default", size = "default", children, ...props },
     ref,
@@ -41,7 +41,7 @@ const ButtonControl = React.forwardRef<HTMLButtonElement, ButtonProps>(
   },
 );
 
-export default ButtonControl;
+export default Button;
 
 // Helper to get variant classes without external libraries
 const getVariantClasses = (variant: string) => {
