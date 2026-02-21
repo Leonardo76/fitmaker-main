@@ -24,19 +24,28 @@ const Services = () => {
           At This Part You Can Easily access all of our servises. take a look at
           them and chose wich ever you want.
         </p>
-        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4 px-1">
           {services.map((service, i) => (
-            <div key={i} className="relative">
-              <img src={service.image} alt="" className="w-full" />
-              <button className="absolute top-22 lg:top-18 left-6 md:left-10 lg:left-5 flex items-center gap-1">
-                <div className="absolute left-0 size-5 rounded-full bg-primaryVar5 blur-[10px]" />
-                <div className="md:font-regular relative text-lg font-medium md:text-xs xl:text-sm text-left w-[22ch] md:w-[25ch] lg:w-[22ch]">
-                  <p className="text-[16px] lg:text-[14px] md:whitespace-pre-wrap">
-                    {service.text}
-                  </p>
-                </div>
-                {/*<img src={arrowRight} alt="-" />*/}
-              </button>
+            <div key={i} className="relative overflow-hidden">
+              <img
+                src={service.image}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/40 to-transparent"></div>
+
+              {/* Content */}
+              <div className="absolute inset-0 flex flex-col top-1/2 lg:-translate-y-[10%] gap-3 p-4">
+                <p className="text-2xl font-bold uppercase text-red-500 drop-shadow-lg">
+                  {service.name}
+                </p>
+
+                <p className="text-sm md:text-base text-gray-200 leading-relaxed drop-shadow-md ">
+                  {service.text}
+                </p>
+              </div>
             </div>
           ))}
         </div>

@@ -39,6 +39,7 @@ import edward from "./images/edward.png";
 import josh from "./images/josh.png";
 import steven from "./images/steven.png";
 import sam from "./images/sam.png";
+import edi from "./images/edi.png";
 import harris from "./images/harris.png";
 import john from "./images/john.png";
 import tom from "./images/tom.png";
@@ -69,6 +70,7 @@ export {
   josh,
   steven,
   sam,
+  edi,
   harris,
   john,
   tom,

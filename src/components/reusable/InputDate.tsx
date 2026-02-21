@@ -47,8 +47,8 @@ export default function InputDate({ labelText }: InputDateProps) {
       </div>
       <div className="relative flex items-center justify-center gap-1 rounded border-2 border-white px-1 py-2">
         <DateChooser
-          minYear={25}
-          maxYear={2027}
+          minYear={1926}
+          maxYear={2026}
           classNameContainer="flex justify-center items-center align-middle"
           classNameDay="md:text-end"
           classNameMonth=""

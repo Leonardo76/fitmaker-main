@@ -11,7 +11,7 @@ import {
   location,
   motivated,
   phone,
-  sam,
+  edi,
   service1,
   service2,
   service3,
@@ -116,19 +116,23 @@ export const ourWebsite = [
 
 export const services = [
   {
+    name: "Losing weight",
     image: service1,
     text: "Poți scăpa de kilogramele nedorite folosind un plan de antrenament bine structurat, concis și special adaptat modului tău de viață și timpului de care dispui în zilele de antrenament.",
   },
   {
+    name: "Building muscle",
     image: service2,
     text: "Construiește-ți masa musculară folosind greutăți mari cu număr redus de repetări, respirația adecvată, poziția corectă de executarea exercițiului și nu în ultimul rând creează conexiunea minte-mușchi.",
   },
   {
+    name: "Training in home",
     image: service3,
     text: `Poți opta pentru unul dintre pachetele de antrenament online, chiar din confortul propriei case. 
 Creează-ți propriul colț al casei pentru antrenament, pornești un apel video cu mine și vom începe antrenamentul rapid și eficient.`,
   },
   {
+    name: "Gym plan",
     image: service4,
     text: `Planurile mele de antrenament sunt diferite pentru fiecare persoană în parte.    
 Vrei să slăbești, să tonifiezi sau să crești în volum muscular? Cu un plan personalizat rezultatele nu vor întârzia să apară!`,
@@ -286,7 +290,7 @@ export const trainers = [
     id: 1,
     name: "Eduard Bălăiță (32 de ani)",
     role: "Antrenor Personal",
-    image: sam,
+    image: edi,
     about: `    Sunt fost sportiv de performanță (campion național la lupte libere). De la vârsta de 18 ani sunt antrenor personal.
     Absolvent al școlii de antrenori ”Master Class București”, am studiat la specializarea instructor de fitness, de aerobic, dar și cea de antrenor personal.
     Ulterior, m-am specializat în hidroterapie (recuperare medicală acvatică), am absolvit un curs de instructor de natație și un curs de AQUA GYM.
