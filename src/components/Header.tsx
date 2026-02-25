@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 import { chevronDown, menu } from "../assets";
-import { navLinks } from "../lib/constants";
+import { navLinksConfig } from "../lib/constants";
 import Logo from "./reusable/Logo";
 import MobileMenu from "./MobileMenu";
 
@@ -13,6 +13,7 @@ import {
 
 import { useMenuStore } from "../stores/useMenuStore";
 import { headerVar } from "../motion/header";
+import { buildNavLinks } from "../lib/utils";
 
 const Header = () => {
   const menuOpen = useMenuStore((state) => state.menuOpen);
@@ -32,7 +33,9 @@ const Header = () => {
   }, [menuOpen]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious();
+    // Dacă previous e undefined, îl tratăm ca "latest" (adică nu ascundem header-ul din primul event).
+    const previous = scrollY.getPrevious() ?? latest;
+
     if (latest > previous && latest > 350) {
       setHidden(true);
     } else {
@@ -55,6 +58,25 @@ const Header = () => {
     }
   };
 
+  const navLinks = buildNavLinks(navLinksConfig);
+
+  // const navLinks = navLinksConfig.map((item, index) => ({
+  //   // id: generat automat => utilizatorul nu-l mai editează manual
+  //   id: index + 1,
+  //
+  //   // title: vine direct din config-ul simplu
+  //   title: item.title,
+  //
+  //   // href: generat automat in sectionId
+  //   href: `#${item.sectionId}`,
+  //
+  //   // hasChildren: rămâne false (cum era la tine) fără să fie repetat în config
+  //   hasChildren: false,
+  //
+  //   // variant: derivat din isCta; nu depinde de text și nu are "as const" în config
+  //   variant: "isCta" in item && item.isCta ? ("cta" as const) : undefined,
+  // }));
+
   return (
     <motion.header
       variants={headerVar}
@@ -75,13 +97,13 @@ const Header = () => {
             >
               {/*<div className="flex flex-col items-center gap-1">*/}
               <div className="flex flex-col items-center gap-1 ">
-                {!link.title.toLowerCase().includes("join") && (
-                  // <div className="flex cursor-pointer flex-col items-center transition-transform duration-500 hover:after:block hover:after:h-1 hover:after:w-[200%] hover:after:rounded-full hover:after:bg-primary">
+                {link.variant !== "cta" && (
                   <div className="flex cursor-pointer flex-col items-center after:content-[''] after:block after:h-1 after:w-0 hover:after:w-[200%] after:rounded-full after:bg-primary after:transition-all  after:duration-300  after:ease-in-out">
                     {link.title}
                   </div>
                 )}
-                {link.title.toLowerCase().includes("join") && (
+
+                {link.variant === "cta" && (
                   <div className="flex cursor-pointer flex-col items-center rounded-md bg-primary p-2 transition-transform duration-500 hover:scale-125">
                     {link.title}
                   </div>

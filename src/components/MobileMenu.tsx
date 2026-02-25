@@ -1,11 +1,12 @@
 import { close } from "../assets";
-import { navLinks } from "../lib/constants";
+import { navLinksConfig } from "../lib/constants";
 import { menuVar } from "../motion/header";
 import Logo from "./reusable/Logo";
 
 import { motion } from "motion/react";
 import { MouseEvent } from "react";
 import { useMenuStore } from "../stores/useMenuStore";
+import { buildNavLinks } from "../lib/utils";
 
 const MobileMenu = () => {
   const setMenuOpen = useMenuStore((state) => state.setMenuOpen);
@@ -25,6 +26,8 @@ const MobileMenu = () => {
       });
     }
   };
+
+  const navLinks = buildNavLinks(navLinksConfig);
 
   return (
     <motion.div
@@ -49,13 +52,20 @@ const MobileMenu = () => {
             className="font-semibold"
             onClick={(e) => handleClick(e, link.href)}
           >
-            {!link.title.toLowerCase().includes("join") && (
-              // <div className="flex cursor-pointer flex-col items-center transition-transform duration-500 hover:after:block hover:after:h-1 hover:after:w-[200%] hover:after:rounded-full hover:after:bg-primary">
-              <div className="flex cursor-pointer flex-col items-center after:content-[''] after:block after:h-1 after:w-0 hover:after:w-[200%] after:rounded-full after:bg-primary after:transition-all  after:duration-300  after:ease-in-out">
+            {/* VECHE:
+             {!link.title.toLowerCase().includes("join") && (...)}
+             {link.title.toLowerCase().includes("join") && (...)}
+             Problemă: depinde de text ("join") -> se strică la traducere.
+             */}
+
+            {/* NOU: depinde de variant */}
+            {link.variant !== "cta" && (
+              <div className="flex cursor-pointer flex-col items-center after:content-[''] after:block after:h-1 after:w-0 hover:after:w-[200%] after:rounded-full after:bg-primary after:transition-all after:duration-300 after:ease-in-out">
                 {link.title}
               </div>
             )}
-            {link.title.toLowerCase().includes("join") && (
+
+            {link.variant === "cta" && (
               <div className="flex cursor-pointer flex-col items-center rounded-md bg-primary p-2 transition-transform duration-500 hover:scale-125">
                 {link.title}
               </div>

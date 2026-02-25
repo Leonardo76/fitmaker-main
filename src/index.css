@@ -45,8 +45,10 @@
     url("./assets/fonts/Gagalin-Regular.otf") format("opentype");
 }
 
+/* NOU: smooth scroll pentru toate ancorele (#...) */
 html {
     @apply bg-grey;
+    scroll-behavior: smooth;
 }
 
 .container {

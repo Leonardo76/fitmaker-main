@@ -47,7 +47,7 @@ export const useEmailStore = create<EmailState>()(
         set((state) => {
           state.sex = newSex;
         }),
-      birthDate: "9999/09/09", //getCurrentDate(),
+      birthDate: `${new Date().getFullYear().toString().padStart(4, "0")}/01/01`,
       setBirthDate: (newBirthDate: string) =>
         set((state) => {
           state.birthDate = newBirthDate;

@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 import { z } from "zod";
-import { ValidationSchemas } from "../../lib/types";
+import { stripValidationCode, ValidationSchemas } from "../../lib/types";
 import { capitalize, getRidOfDiacritics } from "../../lib/utils";
 import { useEmailStore } from "../../stores/useEmailStore";
 import { useErrorStore } from "../../stores/useErrorStore";
@@ -69,12 +69,14 @@ export const InputText = ({
       //validation failed
       const mesaj = z.treeifyError(validateInput.error).errors[0];
 
+      const mesajCurat = stripValidationCode(mesaj);
+
       if (typeEmail) {
-        setEmailError(mesaj);
+        setEmailError(mesajCurat);
       } else if (firstName) {
-        setFirstNameError(mesaj);
+        setFirstNameError(mesajCurat);
       } else {
-        setLastNameError(mesaj);
+        setLastNameError(mesajCurat);
       }
       return;
     }

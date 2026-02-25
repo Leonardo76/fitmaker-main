@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "motion/react";
-import { MouseEvent, useEffect, useState } from "react";
+// import { MouseEvent, useEffect, useState } from "react"; // VECHI (MouseEvent pt <a>)
+import { MouseEvent, useEffect, useState } from "react"; // NOU: MouseEvent rămâne, dar pt <button>
 import { useMenuStore } from "./stores/useMenuStore";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -18,24 +19,32 @@ function App() {
   const setMenuOpen = useMenuStore((state) => state.setMenuOpen);
 
   useEffect(() => {
+    let rafId: number | null = null;
+
     const updatePosition = () => {
-      setScrollPosition(window.pageYOffset);
+      if (rafId !== null) return;
+
+      rafId = window.requestAnimationFrame(() => {
+        setScrollPosition(window.scrollY || window.pageYOffset || 0);
+        rafId = null;
+      });
     };
 
-    window.addEventListener("scroll", updatePosition);
+    updatePosition();
+    window.addEventListener("scroll", updatePosition, { passive: true });
 
-    return () => window.removeEventListener("scroll", updatePosition);
+    return () => {
+      window.removeEventListener("scroll", updatePosition);
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+    };
   }, []);
 
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+  const handleScrollToTopClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (menuOpen) {
-      setMenuOpen(false);
-    }
-    document.getElementsByTagName("html")[0]?.scrollIntoView({
-      behavior: "smooth",
-    });
+    if (menuOpen) setMenuOpen(false);
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -52,9 +61,9 @@ function App() {
       <Community />
       <Faq />
       <Footer />
+
       <AnimatePresence>
         {scrollPosition > 100 && (
-          //  hidden lg:block
           <motion.div
             className="fixed left-0.5 top-1/2 text-xs font-medium"
             id="float"
@@ -68,9 +77,14 @@ function App() {
             whileTap={{ scale: 1 }}
           >
             <span className="rotate-180 tracking-tight [writing-mode:vertical-lr]">
-              <a href="#" onClick={handleClick} className="text-red-400">
-                Scroll to top
-              </a>
+              <button
+                type="button"
+                onClick={handleScrollToTopClick}
+                className="text-red-400"
+                aria-label="Mergi sus în pagină"
+              >
+                Înapoi sus
+              </button>
             </span>
           </motion.div>
         )}

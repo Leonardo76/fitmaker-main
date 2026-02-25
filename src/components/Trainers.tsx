@@ -78,7 +78,7 @@ const Trainers = () => {
                 <img
                   src={trainer.image}
                   alt=""
-                  className="w-[119.33px] md:h-55 md:w-53.5 xl:size-70.25"
+                  className="size-70  xl:size-70.25"
                 />
                 <div className="space-y-3 rounded-xl bg-greyLight px-3 drop-shadow-sm mt-3 flex flex-col items-center justify-center">
                   <h3 className="font-medium xl:text-2xl xl:font-bold">

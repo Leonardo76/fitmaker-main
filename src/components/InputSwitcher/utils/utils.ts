@@ -1,3 +1,5 @@
+import { capitalize } from "../../../lib/utils";
+
 /**
  * Gets the maximum number of days for a given month and year
  */
@@ -19,6 +21,9 @@ export const getNewValueForDay = (
   const maxDays = getMaxDays(month, year);
 
   if (cursorPos === 1 && newPressedKey === "0") {
+    if (afterCursor === "0") {
+      return "01";
+    }
     return "0" + afterCursor;
   } else if (cursorPos === 1 && newPressedKey === "1") {
     return "1" + afterCursor;
@@ -36,6 +41,10 @@ export const getNewValueForDay = (
   } else if (cursorPos === 1 && parseInt(newPressedKey, 10) > 3) {
     return maxDays.toString().padStart(2, "0");
   } else if (cursorPos === 2) {
+    if (beforeCursor === "0" && newPressedKey === "0") {
+      return "01";
+    }
+
     const tempNewValue = parseInt(beforeCursor + newPressedKey, 10);
 
     if (tempNewValue >= maxDays) {
@@ -149,12 +158,13 @@ function checkYear(year: string, minYear: number, maxYear: number) {
 
 export function removeLeadingZeros(str: string): string {
   // Handle empty or non-string input
-  if (!str || typeof str !== "string") return "0";
+  if (str.length === 0) return "0";
+  // if (!str || typeof str !== "string") return "0";// este ok daca str:unknown
 
   // Split into integer and fractional parts
   const [integerPart, fractionalPart] = str.split(".");
 
-  // Process integer part: remove leading zeros, but keep at least one digit
+  // Process integer part: remove leading zeros but keep at least one digit
   const cleanedInteger = integerPart.replace(/^0+/, "") || "0";
 
   // Reconstruct the result
@@ -196,23 +206,4 @@ export function getMonthAndYear(year: number, month: number, day: number) {
   });
 
   return capitalize(monthShortString);
-}
-
-/**
- * Capitalize first letter of the words in the string
- */
-function capitalize(str: string) {
-  // Split into words
-  const words = str.split(" ");
-  const resWords: string[] = [];
-  // loop over words, slicing and capitalizing the first letter of each word.
-  words.forEach((word) => {
-    const letterOne = word.slice(0, 1);
-    const upperCaseLetterOne = letterOne.toUpperCase();
-    const otherLetters = word.slice(1);
-    const newWord = upperCaseLetterOne + otherLetters;
-    resWords.push(newWord);
-  });
-  // Turn it back into a human-readable string.
-  return resWords.join(" ");
 }

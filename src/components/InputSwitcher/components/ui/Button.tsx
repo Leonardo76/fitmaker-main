@@ -1,16 +1,20 @@
 import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react";
 
+type ButtonVariant =
+  | "default"
+  | "destructive"
+  | "outline"
+  | "secondary"
+  | "ghost"
+  | "empty"
+  | "link"
+  | "icon";
+
+type ButtonSize = "default" | "sm" | "lg" | "icon";
+
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "empty"
-    | "link"
-    | "icon";
-  size?: "default" | "sm" | "lg" | "icon";
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   children?: ReactNode;
 }
 
@@ -44,7 +48,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 export default Button;
 
 // Helper to get variant classes without external libraries
-const getVariantClasses = (variant: string) => {
+const getVariantClasses = (variant: ButtonVariant) => {
   switch (variant) {
     case "default":
       return "bg-blue-600 text-white hover:bg-blue-700 shadow-sm";
@@ -68,7 +72,7 @@ const getVariantClasses = (variant: string) => {
 };
 
 // Helper to get size classes
-const getSizeClasses = (size: string) => {
+const getSizeClasses = (size: ButtonSize) => {
   switch (size) {
     case "default":
       return "h-10 px-4 py-2";

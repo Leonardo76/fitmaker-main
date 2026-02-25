@@ -1,4 +1,19 @@
-// import { DatePart } from "./types";
+import { NavLinks, NavLinksConfig } from "./types";
+
+export function buildNavLinks(navLinksConfig: NavLinksConfig): NavLinks {
+  return navLinksConfig.map((item, index) => ({
+    // id: generat automat => utilizatorul nu-l editează manual
+    id: index + 1,
+    // title: vine direct din config-ul simplu
+    title: item.title,
+    // href: generat automat in sectionId
+    href: `#${item.sectionId}`,
+    // hasChildren: rămâne false (cum era), nu se repeta în config
+    hasChildren: false,
+    // variant: derivat din isCta; nu depinde de text și nu are "as const" în config
+    variant: "isCta" in item && item.isCta ? ("cta" as const) : undefined,
+  }));
+}
 
 export function capitalize(str: string) {
   // Split into words
@@ -16,20 +31,15 @@ export function capitalize(str: string) {
   return resWords.join(" ");
 }
 
-export function getCurrentDate() {
-  // const today = new Date();
-  //
-  // return (
-  //   today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate()
-  // );
-  return getStringDate(new Date());
-}
+// export function getCurrentDate() {
+//   return getStringDate(new Date());
+// }
 
-export function getStringDate(date: Date) {
-  return completeDateWithZeros(
-    date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate(),
-  );
-}
+// export function getStringDate(date: Date) {
+//   return completeDateWithZeros(
+//     date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate(),
+//   );
+// }
 
 export function getAge(birthDate: string) {
   const birthDateAsDate = new Date(birthDate);
@@ -68,7 +78,7 @@ export function completeWithZeros(
 }
 
 /**
- * Complete necessary zeros to write date correctly.
+ * Complete necessary zeros to write the date correctly.
  * The month and day are completed, if necessary, with leading zeros to a length of two digits.
  * The year is completed with leading zeros to a length of four digits.
  * @param date - input date in format yyyy/mm/dd

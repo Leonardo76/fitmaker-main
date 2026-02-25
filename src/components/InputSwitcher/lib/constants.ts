@@ -1,5 +1,6 @@
-export const calendarBackgroundColor = "bg-primaryVar3";
-export const calendarBorderColor = "border-secondaryVar3";
+// Variabile folosite pentru randarea Calendarului
+export const calendarBackgroundColor = "bg-primaryVar3"; //folosit si in DateChooser când apelez Calendar
+export const calendarBorderColor = "border-secondaryVar3"; //folosit si in DateChooser când apelez Calendar
 
 export const previewsMonthTextColor = "text-white";
 export const previewsMonthTextColorHover = "hover:text-red-700";
@@ -34,7 +35,3 @@ export const todayBackgroundColorHover = "hover:bg-red-100";
 export const todayBorderColor = "border-white";
 
 export const WEEK_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-export const DAY = "DAY" as const;
-export const MONTH = "MONTH" as const;
-export const YEAR = "YEAR" as const;

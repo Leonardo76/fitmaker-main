@@ -63,7 +63,7 @@ const Community = () => {
           </div>
         </div>
 
-        <EmailForm />
+        <EmailForm minYear={1926} maxYear={new Date().getFullYear()} />
       </motion.div>
     </section>
   );

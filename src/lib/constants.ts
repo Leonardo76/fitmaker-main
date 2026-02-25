@@ -1,6 +1,7 @@
 import {
   balancedDiet,
   buildMuscle,
+  edi,
   edward,
   email,
   facebook,
@@ -11,7 +12,6 @@ import {
   location,
   motivated,
   phone,
-  edi,
   service1,
   service2,
   service3,
@@ -20,45 +20,22 @@ import {
   x,
   youtube,
 } from "../assets";
+import { NavLinksConfig } from "./types";
 
-export const navLinks = [
-  {
-    id: 1,
-    title: "Services",
-    hasChildren: false,
-    href: "#services",
-  },
-  {
-    id: 2,
-    title: "Plans",
-    hasChildren: false,
-    href: "#plans",
-  },
-  {
-    id: 3,
-    title: "Trainer",
-    hasChildren: false,
-    href: "#trainer",
-  },
-  {
-    id: 4,
-    title: "FAQ",
-    hasChildren: false,
-    href: "#faq",
-  },
-  {
-    id: 5,
-    title: "Contact",
-    hasChildren: false,
-    href: "#contact",
-  },
-  {
-    id: 6,
-    title: "Join Us",
-    hasChildren: false,
-    href: "#join",
-  },
-];
+//meniul principal (link-urile)
+// - title: textul din meniu (traductibil)
+// - sectionId: id-ul secțiunii din pagină (fără #)
+// - isCta: dacă link-ul trebuie să fie evidențiat ca buton (CTA)
+export const navLinksConfig: NavLinksConfig = [
+  // IMPORTANT: puteți schimba textul ("Alătură-te", "Servicii" ...),
+  // dar NU atingeți celelalte
+  { title: "Servicii", sectionId: "services" },
+  { title: "Planuri", sectionId: "plans" },
+  { title: "Antrenor", sectionId: "trainer" },
+  { title: "FAQ", sectionId: "faq" },
+  { title: "Contact", sectionId: "contact" },
+  { title: "Alătură-te", sectionId: "join", isCta: true },
+] as const;
 
 export const stats = [
   {
@@ -116,22 +93,30 @@ export const ourWebsite = [
 
 export const services = [
   {
+    // name: "Losing weight", // VECHI
+    id: "weight-loss", // NOU
     name: "Losing weight",
     image: service1,
     text: "Poți scăpa de kilogramele nedorite folosind un plan de antrenament bine structurat, concis și special adaptat modului tău de viață și timpului de care dispui în zilele de antrenament.",
   },
   {
+    // name: "Building muscle", // VECHI
+    id: "muscle-building", // NOU
     name: "Building muscle",
     image: service2,
     text: "Construiește-ți masa musculară folosind greutăți mari cu număr redus de repetări, respirația adecvată, poziția corectă de executarea exercițiului și nu în ultimul rând creează conexiunea minte-mușchi.",
   },
   {
+    // name: "Training in home", // VECHI
+    id: "home-training", // NOU
     name: "Training in home",
     image: service3,
     text: `Poți opta pentru unul dintre pachetele de antrenament online, chiar din confortul propriei case. 
 Creează-ți propriul colț al casei pentru antrenament, pornești un apel video cu mine și vom începe antrenamentul rapid și eficient.`,
   },
   {
+    // name: "Gym plan", // VECHI
+    id: "gym-plan", // NOU
     name: "Gym plan",
     image: service4,
     text: `Planurile mele de antrenament sunt diferite pentru fiecare persoană în parte.    

@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useMemo } from "react";
 import { capitalize } from "../../lib/utils";
 import { GenderType } from "../../lib/types";
 import { useEmailStore } from "../../stores/useEmailStore";
@@ -6,19 +6,51 @@ import { useEmailStore } from "../../stores/useEmailStore";
 type InputSelectOptionsType = {
   labelText: string;
   image?: {};
-  options?: string[];
+  options?: GenderType[];
 };
 
-export const InputSelect = ({
+const DEFAULT_SEX: GenderType = "nespecificat";
+
+function isGenderType(value: string): value is GenderType {
+  return (
+    value === "masculin" || value === "feminin" || value === "nespecificat"
+  );
+}
+
+export default function InputSelect({
   labelText,
   image,
-  options = ["masculin", "feminin"],
-}: InputSelectOptionsType) => {
+  options = [DEFAULT_SEX, "masculin", "feminin"],
+}: InputSelectOptionsType) {
+  const sex = useEmailStore((state) => state.sex);
   const setSex = useEmailStore((state) => state.setSex);
 
+  // Normalizează lista: fără duplicate, doar valori valide, în ordine stabilă
+  const normalizedOptions = useMemo(() => {
+    const valid: GenderType[] = [];
+    for (const opt of options ?? []) {
+      if (opt === "masculin" || opt === "feminin" || opt === "nespecificat") {
+        if (!valid.includes(opt)) valid.push(opt);
+      }
+    }
+    // fallback: dacă nu mai rămâne nimic, punem default-ul
+    return valid.length > 0 ? valid : [DEFAULT_SEX];
+  }, [options]);
+
+  // Super-sigur: dacă sex curent nu există în options, îl aducem la o valoare permisă
+  useEffect(() => {
+    if (normalizedOptions.includes(sex)) return;
+
+    const fallback: GenderType = normalizedOptions.includes(DEFAULT_SEX)
+      ? DEFAULT_SEX
+      : normalizedOptions[0];
+
+    if (fallback !== sex) setSex(fallback);
+  }, [sex, normalizedOptions, setSex]);
+
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value as GenderType;
-    setSex(value);
+    const value = e.target.value;
+    if (isGenderType(value)) setSex(value);
   };
 
   return (
@@ -34,13 +66,10 @@ export const InputSelect = ({
           id="gender"
           className="flex-1 appearance-none bg-primaryVar3 dark:bg-primaryVar3 focus:outline-none focus:border-r"
           required
-          defaultValue={""}
+          value={normalizedOptions.includes(sex) ? sex : normalizedOptions[0]}
           onChange={handleChange}
-          // onBlur={handleBlur}
         >
-          {/* disabled */}
-          <option value="">Nespecificat</option>
-          {options.map((option, index) => (
+          {normalizedOptions.map((option, index) => (
             <option key={option + index} value={option}>
               {capitalize(option)}
             </option>
@@ -49,4 +78,4 @@ export const InputSelect = ({
       </div>
     </label>
   );
-};
+}

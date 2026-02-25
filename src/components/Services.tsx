@@ -20,17 +20,35 @@ const Services = () => {
         <h2 className="text-xl font-semibold lg:text-2xl lg:font-bold xl:text-3xl">
           Our <span className="text-primary">Services</span>
         </h2>
+        {/* VECHI */}
+        {/* <p className="text-xs lg:text-sm xl:text-base">
+         At This Part You Can Easily access all of our services. take a look at
+         them and chose whichever you want.
+         </p> */}
+
+        {/* NOU (copy mai curat) */}
         <p className="text-xs lg:text-sm xl:text-base">
-          At This Part You Can Easily access all of our servises. take a look at
-          them and chose wich ever you want.
+          Explore our services below and choose the option that fits your goals.
         </p>
+
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4 px-1">
-          {services.map((service, i) => (
-            <div key={i} className="relative overflow-hidden">
+          {/* VECHI */}
+          {/* {services.map((service, i) => (
+           <div key={i} className="relative overflow-hidden">
+           <img
+           src={service.image}
+           alt=""
+           className="w-full h-full object-cover"
+           /> */}
+
+          {/* NOU */}
+          {services.map((service) => (
+            <div key={service.id} className="relative overflow-hidden">
               <img
                 src={service.image}
-                alt=""
+                alt={service.name}
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
 
               {/* Gradient Overlay */}

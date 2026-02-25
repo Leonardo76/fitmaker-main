@@ -3,6 +3,7 @@ import {
   KeyboardEvent,
   RefObject,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -16,37 +17,15 @@ import {
 } from "../utils/utils";
 import Calendar from "./ui/Calendar";
 import Button from "./ui/Button";
-import {
-  calendarBackgroundColor,
-  calendarBorderColor,
-  DAY,
-  MONTH,
-  YEAR,
-} from "../lib/constants";
+import { calendarBackgroundColor, calendarBorderColor } from "../lib/constants";
 import { calendar } from "../assets";
+import { useEmailStore } from "../../../stores/useEmailStore";
+import { useErrorStore } from "../../../stores/useErrorStore";
+import { makeBirthDateSchema, stripValidationCode } from "../../../lib/types";
 
-type TimeFields = typeof DAY | typeof MONTH | typeof YEAR;
+import { DateChooserProps, DAY, MONTH, TimeFields, YEAR } from "../lib/types";
 
-type ValidFormats =
-  | [typeof DAY, typeof MONTH, typeof YEAR]
-  | [typeof DAY, typeof YEAR, typeof MONTH]
-  | [typeof MONTH, typeof DAY, typeof YEAR]
-  | [typeof MONTH, typeof YEAR, typeof DAY]
-  | [typeof YEAR, typeof DAY, typeof MONTH]
-  | [typeof YEAR, typeof MONTH, typeof DAY];
-
-export type InputSwitcherProps = {
-  minYear: number;
-  maxYear?: number;
-  classNameContainer?: string;
-  classNameDay?: string;
-  classNameMonth?: string;
-  classNameYear?: string;
-  dateFormat?: ValidFormats;
-  useCalendar?: boolean;
-};
-
-const DateChooser = ({
+export default function DateChooser({
   minYear,
   maxYear = new Date().getFullYear(),
   classNameContainer,
@@ -55,18 +34,22 @@ const DateChooser = ({
   classNameYear,
   dateFormat = [DAY, MONTH, YEAR],
   useCalendar = true,
-}: InputSwitcherProps) => {
+}: DateChooserProps) {
   const inputDayRef = useRef<HTMLInputElement | null>(null);
   const inputMonthRef = useRef<HTMLInputElement | null>(null);
   const inputYearRef = useRef<HTMLInputElement | null>(null);
+  const calendarRef = useRef<HTMLDivElement>(null);
+
   const [day, setDay] = useState<string>("01");
   const [month, setMonth] = useState<string>("01");
   const currentYear = new Date().getFullYear();
   const [year, setYear] = useState<string>(currentYear.toString());
   const [newPressedKey, setNewPressedKey] = useState("");
-
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
-  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const birthDateInStore = useEmailStore((state) => state.birthDate);
+  const setBirthDate = useEmailStore((state) => state.setBirthDate);
+  const setBirthDateError = useErrorStore((state) => state.setBirthDateError);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -103,6 +86,43 @@ const DateChooser = ({
     );
   }, [month, year]);
 
+  // utilizam useMemo pentru schema (se recreează doar dacă se schimbă minYear/maxYear)
+  const birthDateSchema = useMemo(
+    () => makeBirthDateSchema(minYear, maxYear),
+    [minYear, maxYear],
+  );
+
+  // după ce day/month/year sunt curate, construim YYYY/MM/DD și îl scriem în store
+  // sincronizează mereu în store în format canonic YYYY/MM/DD (cu zero-uri)
+  useEffect(() => {
+    const yyyy = year.toString().padStart(4, "0");
+    const mm = month.toString().padStart(2, "0");
+    const dd = day.toString().padStart(2, "0");
+    const birthDate = `${yyyy}/${mm}/${dd}`;
+
+    if (birthDateInStore !== birthDate) {
+      setBirthDate(birthDate);
+    }
+
+    const result = birthDateSchema.safeParse(birthDate);
+
+    if (!result.success) {
+      // prioritate: format înainte de range (determinist prin ordinea refine-urilor)
+      const firstIssue = result.error.issues[0];
+      setBirthDateError(stripValidationCode(firstIssue.message));
+    } else {
+      setBirthDateError("");
+    }
+  }, [
+    day,
+    month,
+    year,
+    birthDateSchema,
+    birthDateInStore,
+    setBirthDate,
+    setBirthDateError,
+  ]);
+
   const handleCalendarSelect = (date: Date) => {
     setDay(date.getDate().toString().padStart(2, "0"));
     setMonth((date.getMonth() + 1).toString().padStart(2, "0"));
@@ -121,16 +141,19 @@ const DateChooser = ({
 
   const handleKeyDown = (
     event: KeyboardEvent<HTMLInputElement>,
-    inputRef: RefObject<HTMLInputElement>,
-    nextInputRef: RefObject<HTMLInputElement>,
-    prevInputRef: RefObject<HTMLInputElement>,
+    inputRef: RefObject<HTMLInputElement | null>,
+    nextInputRef: RefObject<HTMLInputElement | null>,
+    prevInputRef: RefObject<HTMLInputElement | null>,
   ) => {
     if (event.key === "ArrowRight") {
       event.preventDefault();
       if (inputRef.current) {
-        const cursorPos = inputRef.current.selectionStart;
-        inputRef.current.setSelectionRange(cursorPos + 1, cursorPos + 1);
-        if (cursorPos >= inputRef.current.value.length) {
+        const el = inputRef.current; // scurtăm accesul și evităm repetarea
+        const cursorPos = el.selectionStart;
+        if (cursorPos === null) return;
+
+        el.setSelectionRange(cursorPos + 1, cursorPos + 1);
+        if (cursorPos >= el.value.length) {
           nextInputRef.current?.focus();
           nextInputRef.current?.setSelectionRange(0, 0);
         }
@@ -138,8 +161,11 @@ const DateChooser = ({
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
       if (inputRef.current) {
-        const cursorPos = inputRef.current.selectionStart;
-        inputRef.current.setSelectionRange(cursorPos - 1, cursorPos - 1);
+        const el = inputRef.current;
+        const cursorPos = el.selectionStart;
+        if (cursorPos === null) return;
+
+        el.setSelectionRange(cursorPos - 1, cursorPos - 1);
         if (cursorPos - 1 < 0) {
           prevInputRef.current?.focus();
           prevInputRef.current?.setSelectionRange(
@@ -194,7 +220,7 @@ const DateChooser = ({
     }
   };
 
-  const handleDecrease = (inputRef: RefObject<HTMLInputElement>) => {
+  const handleDecrease = (inputRef: RefObject<HTMLInputElement | null>) => {
     if (inputRef.current) {
       switch (inputRef) {
         case inputDayRef:
@@ -231,7 +257,7 @@ const DateChooser = ({
     }
   };
 
-  const handleIncrease = (inputRef: RefObject<HTMLInputElement>) => {
+  const handleIncrease = (inputRef: RefObject<HTMLInputElement | null>) => {
     if (inputRef.current) {
       if (inputRef === inputDayRef) {
         setDay((prev) => {
@@ -264,7 +290,7 @@ const DateChooser = ({
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement>,
-    inputRef: RefObject<HTMLInputElement>,
+    inputRef: RefObject<HTMLInputElement | null>,
   ) => {
     event.preventDefault();
 
@@ -277,15 +303,18 @@ const DateChooser = ({
 
     if (inputElement) {
       const cursorPos = inputElement.selectionStart;
+      if (cursorPos === null) return;
+
       const inputValue = inputElement.value;
 
       if (cursorPos < inputValue.length) {
         const beforeCursor = inputValue.substring(0, cursorPos - 1);
         const afterCursor = inputValue.substring(cursorPos + 1);
 
-        let newValue: string;
+        let newValue: string = inputValue;
+
         if (inputRef === inputDayRef) {
-          newValue = getNewValueForDay(
+          const computed = getNewValueForDay(
             cursorPos,
             beforeCursor,
             afterCursor,
@@ -293,19 +322,22 @@ const DateChooser = ({
             parseInt(year, 10),
             newPressedKey,
           );
+          newValue = computed ?? inputValue;
           setDay(newValue);
         }
+
         if (inputRef === inputMonthRef) {
-          newValue = getNewValueForMonth(
+          const computed = getNewValueForMonth(
             cursorPos,
             beforeCursor,
             afterCursor,
             newPressedKey,
           );
+          newValue = computed ?? inputValue;
           setMonth(newValue);
         }
         if (inputRef === inputYearRef) {
-          newValue = getNewValueForYear(
+          const computed = getNewValueForYear(
             cursorPos,
             beforeCursor,
             afterCursor,
@@ -313,24 +345,50 @@ const DateChooser = ({
             maxYear,
             newPressedKey,
           );
+          newValue = computed ?? inputValue;
           setYear(newValue);
         }
 
         inputElement.value = newValue;
+
         inputElement.setSelectionRange(cursorPos, cursorPos);
         inputElement.focus();
+
+        const isDayOrMonth =
+          inputRef === inputDayRef || inputRef === inputMonthRef;
+        const isYear = inputRef === inputYearRef;
+
+        //cursor la finalul textului curent
+        const atRightEdge = cursorPos >= inputElement.value.length;
+
+        if (isDayOrMonth && !isYear && atRightEdge) {
+          // Regula cerută (fără să schimbăm restul logicii):
+          // zi -> luna, luna -> an
+          const nextRef =
+            inputRef === inputDayRef ? inputMonthRef : inputYearRef;
+
+          // setăm focus pe următorul câmp și punem cursorul la început (stânga)
+          nextRef.current?.focus();
+          nextRef.current?.setSelectionRange(0, 0);
+        }
+
         setNewPressedKey("");
       }
     }
   };
 
-  const handleFocus = (inputRef: RefObject<HTMLInputElement>) => {
-    inputRef.current.setSelectionRange(0, 0); // Poziționează cursorul la începutul textului
+  const handleFocus = (inputRef: RefObject<HTMLInputElement | null>) => {
+    inputRef.current?.setSelectionRange(0, 0); // Poziționează cursorul la începutul textului
   };
 
-  const inputMapping: {
-    [key in TimeFields]: React.RefObject<HTMLInputElement>;
-  } = {
+  // const inputMapping: {
+  //   [key in TimeFields]: RefObject<HTMLInputElement>;
+  // } = {
+  //   [DAY]: inputDayRef,
+  //   [MONTH]: inputMonthRef,
+  //   [YEAR]: inputYearRef,
+  // };
+  const inputMapping: Record<TimeFields, RefObject<HTMLInputElement | null>> = {
     [DAY]: inputDayRef,
     [MONTH]: inputMonthRef,
     [YEAR]: inputYearRef,
@@ -391,7 +449,7 @@ const DateChooser = ({
             onKeyDown={handleButtonKeyDown}
           >
             {useCalendar && (
-              <img src={calendar as string} alt="" className="" />
+              <img src={calendar as string} alt="Calendar" className="" />
             )}
           </Button>
         </div>
@@ -410,6 +468,4 @@ const DateChooser = ({
       )}
     </div>
   );
-};
-
-export default DateChooser;
+}

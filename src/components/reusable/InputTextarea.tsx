@@ -1,8 +1,7 @@
-import * as React from "react";
 import { ChangeEvent } from "react";
 import { useEmailStore } from "../../stores/useEmailStore";
 import { useErrorStore } from "../../stores/useErrorStore";
-import { ValidationSchemas } from "../../lib/types";
+import { stripValidationCode, ValidationSchemas } from "../../lib/types";
 import { z } from "zod";
 
 type InputTextareaProps = {
@@ -39,7 +38,7 @@ export const InputTextarea = ({
       //validation failed
       const mesaj = z.treeifyError(validateInput.error).errors[0];
 
-      setGoalError(mesaj);
+      setGoalError(stripValidationCode(mesaj));
       return;
     }
 
