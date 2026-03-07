@@ -372,9 +372,7 @@ export default function DateChooser({
         inputElement.value = newValue;
 
         inputElement.setSelectionRange(cursorPos, cursorPos);
-        if (document.activeElement !== inputElement) {
-          inputElement.focus();
-        }
+        inputElement.focus();
 
         const isDayOrMonth =
           inputRef === inputDayRef || inputRef === inputMonthRef;
@@ -399,7 +397,12 @@ export default function DateChooser({
   };
 
   const handleFocus = (inputRef: RefObject<HTMLInputElement | null>) => {
-    inputRef.current?.setSelectionRange(0, 0);
+    // VECHI:
+    // inputRef.current?.setSelectionRange(0, 0);
+    // NOU:
+    requestAnimationFrame(() => {
+      inputRef.current?.setSelectionRange(0, 0);
+    });
   };
 
   const inputMapping: Record<TimeFields, RefObject<HTMLInputElement | null>> = {
