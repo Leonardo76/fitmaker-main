@@ -63,7 +63,7 @@ export const InputTextarea = ({
           rows={3}
           cols={20}
           wrap="soft"
-          maxLength={250}
+          // maxLength={250}
           spellCheck="false"
           onChange={handleChange}
         />
