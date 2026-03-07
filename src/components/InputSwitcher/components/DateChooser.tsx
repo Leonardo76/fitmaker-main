@@ -372,7 +372,9 @@ export default function DateChooser({
         inputElement.value = newValue;
 
         inputElement.setSelectionRange(cursorPos, cursorPos);
-        inputElement.focus();
+        if (document.activeElement !== inputElement) {
+          inputElement.focus();
+        }
 
         const isDayOrMonth =
           inputRef === inputDayRef || inputRef === inputMonthRef;
