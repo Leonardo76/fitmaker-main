@@ -130,6 +130,7 @@ const Calendar = ({
     <div className={calendarClasses} ref={ref}>
       <div className="flex items-center justify-between mb-4">
         <Button
+          type="button"
           variant="empty"
           size="icon"
           onClick={handlePrevMonth}
@@ -160,6 +161,7 @@ const Calendar = ({
           {getMonthAndYear(currentYear, currentMonth, 1).toString()}
         </div>
         <Button
+          type="button"
           variant="empty"
           size="icon"
           onClick={handleNextMonth}
@@ -213,6 +215,7 @@ const Calendar = ({
           return (
             <button
               key={day}
+              type="button"
               onClick={() => !disabled && handleDateClick(day)}
               disabled={disabled}
               className={classNames(
