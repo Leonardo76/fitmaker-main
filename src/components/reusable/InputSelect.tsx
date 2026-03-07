@@ -55,7 +55,7 @@ export default function InputSelect({
 
   return (
     <label className={`space-y-2 font-medium `}>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center continut-text">
         {labelText}
         {/*{mesajEroare !== "" && <p className="text-red-400">{mesajEroare}</p>}*/}
       </div>
@@ -64,7 +64,7 @@ export default function InputSelect({
         <select
           name="gender"
           id="gender"
-          className="flex-1 appearance-none bg-primaryVar3 dark:bg-primaryVar3 focus:outline-none focus:border-r"
+          className="flex-1 appearance-none bg-primaryVar3 dark:bg-primaryVar3 focus:outline-none focus:border-r continut-text"
           required
           value={normalizedOptions.includes(sex) ? sex : normalizedOptions[0]}
           onChange={handleChange}

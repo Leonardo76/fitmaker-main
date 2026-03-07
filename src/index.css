@@ -23,6 +23,31 @@
     --vazirmatn: "Vazirmatn";
     --gagalin: "Gagalin";
 }
+
+@utility titlu-pagina {
+    @apply text-[17px] md:text-2xl font-semibold md:font-bold lg:text-4xl xl:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)];
+}
+
+@utility titlu-capitol-text {
+    @apply text-xl font-semibold lg:text-2xl lg:font-bold xl:text-3xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)];
+}
+
+@utility subtitlu-capitol-text {
+    @apply text-base font-semibold lg:text-xl lg:font-bold xl:text-2xl;
+}
+
+@utility continut-text {
+    @apply text-sm lg:text-base;
+}
+
+@utility eroare-text {
+    @apply text-xs md:text-sm lg:text-base;
+}
+
+@utility question-text {
+    @apply text-base font-medium md:text-base xl:text-xl xl:font-semibold;
+}
+
 @utility top-minus-* {
     /*top: calc(100vh - var(--spacing) * --value(integer)); !* handle numbers e.g. h-screen-minus-12 *!*/
     top: calc(50% - --value([length])); /* handle arbitrary values e.g. h-screen-minus-[20px] */

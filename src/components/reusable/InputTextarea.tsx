@@ -48,16 +48,16 @@ export const InputTextarea = ({
 
   return (
     <label className={`space-y-2 font-medium`}>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center continut-text">
         {labelText}
         {goalError !== "" && (
-          <p className="text-red-400 text-xs">{goalError}</p>
+          <p className="text-red-400 eroare-text">{goalError}</p>
         )}
       </div>
       <div className="flex items-center gap-1 rounded border-2 border-white px-1 py-2">
         <img src={image as string} alt="-" />
         <textarea
-          className={`flex-1 resize-none bg-primaryVar3 px-2 outline-none focus:border-r`}
+          className={`flex-1 resize-none bg-primaryVar3 px-2 outline-none focus:border-r continut-text`}
           placeholder={placeholder}
           name={labelText}
           rows={3}

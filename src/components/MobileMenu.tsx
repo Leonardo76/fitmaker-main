@@ -52,13 +52,6 @@ const MobileMenu = () => {
             className="font-semibold"
             onClick={(e) => handleClick(e, link.href)}
           >
-            {/* VECHE:
-             {!link.title.toLowerCase().includes("join") && (...)}
-             {link.title.toLowerCase().includes("join") && (...)}
-             Problemă: depinde de text ("join") -> se strică la traducere.
-             */}
-
-            {/* NOU: depinde de variant */}
             {link.variant !== "cta" && (
               <div className="flex cursor-pointer flex-col items-center after:content-[''] after:block after:h-1 after:w-0 hover:after:w-[200%] after:rounded-full after:bg-primary after:transition-all after:duration-300 after:ease-in-out">
                 {link.title}

@@ -1,5 +1,6 @@
-import { NavLinks, NavLinksConfig } from "./types";
+import { FigureItem, NavLinks, NavLinksConfig, StatItem } from "./types";
 
+//pentru link-urile din meniu
 export function buildNavLinks(navLinksConfig: NavLinksConfig): NavLinks {
   return navLinksConfig.map((item, index) => ({
     // id: generat automat => utilizatorul nu-l editează manual
@@ -14,6 +15,77 @@ export function buildNavLinks(navLinksConfig: NavLinksConfig): NavLinks {
     variant: "isCta" in item && item.isCta ? ("cta" as const) : undefined,
   }));
 }
+
+//region Pentru mesajele din jurul imaginii din Hero
+
+function clamp(v: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, v));
+}
+// hash determinist -> [0, 1)
+function hash01(input: string): number {
+  let h = 2166136261; // FNV-1a-ish
+  for (let i = 0; i < input.length; i++) {
+    h ^= input.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  // >>> 0 => unsigned
+  return ((h >>> 0) % 100000) / 100000;
+}
+
+// jitter mic în [-amp, amp]
+function jitter(input: string, amp: number) {
+  return (hash01(input) * 2 - 1) * amp;
+}
+
+export function buildStats(figures: FigureItem[]): StatItem[] {
+  const n = figures.length;
+  if (n === 0) return [];
+
+  // centru container
+  const cx = 50;
+  const cy = 50;
+
+  // Inel în jurul imaginii:
+  // 50% ar fi exact pe marginea containerului, dar noi vrem în jurul imaginii + un pic peste halou,
+  // fără să fugă în afara secțiunii (care are overflow-hidden).
+  // Ajustează după gust: 40..47 e de obicei sigur.
+  const baseR = 50;
+
+  // Păstrează cardurile în interiorul containerului relativ (ca să nu fie tăiate de overflow-hidden).
+  // Dacă vrei mai peste, micșorează padding-ul, dar ai grijă la tăiere.
+  const safeMin = 6;
+  const safeMax = 94;
+
+  // start de sus, dar ușor rotit ca să nu arate cruce la 4
+  const startDeg = -90 + 12;
+  const start = (startDeg * Math.PI) / 180;
+
+  return figures.map((item, index) => {
+    const key = `${item.figures}|${item.desc}|${index}`;
+
+    // unghi uniform + jitter mic (în radiani)
+    const step = (2 * Math.PI) / n;
+    const angle = start + index * step + jitter(key, 0.22); // ~12.6° jitter
+
+    // rază cu jitter + alternare (în/out) ca să reducă alinierea perfectă
+    const r = baseR + jitter(key + "|r", 4) + (index % 2 === 0 ? 2.5 : -2.5);
+
+    const x = clamp(cx + r * Math.cos(angle), safeMin, safeMax);
+    const y = clamp(cy + r * Math.sin(angle), safeMin, safeMax);
+
+    return {
+      id: index + 1,
+      ...item,
+      positionClass: "-translate-x-1/2 -translate-y-1/2",
+      style: {
+        left: `${x}%`,
+        top: `${y}%`,
+      },
+    };
+  });
+}
+
+//endregion
 
 export function capitalize(str: string) {
   // Split into words

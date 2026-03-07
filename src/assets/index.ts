@@ -18,6 +18,7 @@ import facebook from "./icons/facebook.svg";
 import instagram from "./icons/instagram.svg";
 import x from "./icons/x.svg";
 import youtube from "./icons/youtube.svg";
+import tiktok from "./icons/tiktok.svg";
 import email from "./icons/email.svg";
 import phone from "./icons/phone.svg";
 import location from "./icons/location.svg";
@@ -48,6 +49,7 @@ import balancedDiet from "./images/balancedDiet.png";
 import hTraining from "./images/hTraining.png";
 import homeTraining from "./images/homeTraining.png";
 import motivated from "./images/motivated.png";
+import heroVideo from "./video/video.mp4";
 
 export {
   chevronDown,
@@ -92,6 +94,7 @@ export {
   instagram,
   x,
   youtube,
+  tiktok,
   location,
   email,
   phone,
@@ -99,4 +102,5 @@ export {
   gender,
   birthDate,
   fitness,
+  heroVideo,
 };

@@ -1,86 +1,43 @@
-import {
-  companyLinks,
-  contactInfo,
-  programsLinks,
-  resourcesLinks,
-  socialIcons,
-} from "../lib/constants";
+import { contactInfo } from "../lib/constants";
 import Logo from "./reusable/Logo";
+import ContactItem from "./reusable/ContactItem";
 
 const Footer = () => {
   return (
-    <section className={`bg-grey py-8 lg:py-10 xl:py-12 mx-1`} id="contact">
-      <div className="container flex justify-between gap-6 max-md:flex-col lg:gap-2 xl:gap-3">
-        <div className="space-y-4 md:w-[37%] xl:space-y-6">
+    <section
+      className={`bg-grey mx-1 py-8 md:mx-3 lg:py-10 xl:py-12`}
+      id="contact"
+    >
+      <div className="container flex gap-6 max-md:flex-col md:justify-between md:gap-5">
+        <div className="flex-1 space-y-4 xl:space-y-6">
           <Logo />
-          <p className="text-greyText max-md:text-xs">
-            Transform Your Body with FitMaker, Your Trusted Partner in Fitness.
-            With Over <span className="text-primary">5 Years</span> of
-            Experience, We Offer Expert Coaching, Tailored Workout Plans, and
-            Comprehensive Nutritional Guidance.{" "}
-            <span className="text-secondary">Join Our Community</span> and Start
-            Your Journey Towards a Healthier, Stronger You. Ready to Make a
-            Change?
+          <p className="text-justify text-greyText continut-text">
+            Transformă-ți corpul alături de Eduard Bălăiță, partenerul tău de
+            încredere în fitness. Cu peste{" "}
+            <span className="text-primary">14 ani</span> de experiență, ofer
+            îndrumare de specialitate, planuri de antrenament personalizate și
+            ghidare nutrițională completă.{" "}
+            <span className="text-secondary">Alătură-te comunității mele</span>{" "}
+            și începe-ți călătoria către o versiune mai sănătoasă și mai
+            puternică a ta. Ești gata să faci o schimbare?
           </p>
-          <div className="flex items-center justify-around">
-            {socialIcons.map((icon, i) => (
-              <img key={i} src={icon} alt="-" />
-            ))}
-          </div>
         </div>
-        <div className="flex flex-1 justify-around gap-1">
-          <div className="space-y-6 text-center xl:space-y-9">
-            <div className="text-sm font-medium text-primary xl:text-2xl xl:font-bold">
-              Company
+
+        <div className="md:w-fit md:shrink-0">
+          <div className="flex flex-col items-start space-y-3 md:space-y-6 text-left xl:space-y-9">
+            <div className="text-base font-medium text-primaryVar5 xl:text-2xl xl:font-bold">
+              Contact
             </div>
-            <div className="flex flex-col items-center gap-5 xl:gap-6">
-              {companyLinks.map((link, i) => (
-                <a key={i} href="#" className="text-xs text-greyText">
-                  {link}
-                </a>
+            <div className="flex flex-col gap-5 xl:gap-6">
+              {contactInfo.map((info, i) => (
+                <ContactItem
+                  key={i}
+                  icon={info.icon}
+                  info={info.info}
+                  link={info.link}
+                />
               ))}
             </div>
-          </div>
-          <div className="space-y-6 text-center xl:space-y-9">
-            <div className="text-sm font-medium text-primary xl:text-2xl xl:font-bold">
-              Resources
-            </div>
-            <div className="flex flex-col items-center gap-5 xl:gap-6">
-              {resourcesLinks.map((link, i) => (
-                <a key={i} href="#" className="text-xs text-greyText">
-                  {link}
-                </a>
-              ))}
-            </div>
-          </div>
-          <div className="space-y-6 text-center xl:space-y-9">
-            <div className="text-sm font-medium text-primary xl:text-2xl xl:font-bold">
-              Programs
-            </div>
-            <div className="flex flex-col items-center gap-5 xl:gap-6">
-              {programsLinks.map((link, i) => (
-                <a key={i} href="#" className="text-xs text-greyText">
-                  {link}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="w-fit space-y-6 xl:space-y-9">
-          <div className="text-center text-sm font-medium text-secondary xl:text-2xl xl:font-bold">
-            Company
-          </div>
-          <div className="flex flex-col gap-5 xl:gap-6">
-            {contactInfo.map((info, i) => (
-              <a
-                key={i}
-                href="#"
-                className="flex items-center gap-1 text-xs text-greyText"
-              >
-                <img src={info.icon} alt="-" />
-                <div className="">{info.info}</div>
-              </a>
-            ))}
           </div>
         </div>
       </div>

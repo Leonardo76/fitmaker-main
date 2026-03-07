@@ -93,10 +93,10 @@ export const InputText = ({
 
   return (
     <label className={`space-y-2 font-medium`}>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center continut-text">
         {labelText}
         {mesajEroare !== "" && (
-          <p className="text-red-400 text-xs">{mesajEroare}</p>
+          <p className="text-red-400 eroare-text">{mesajEroare}</p>
         )}
       </div>
       <div className="flex items-center gap-1 rounded border-2 border-white px-1 py-2">
@@ -104,7 +104,7 @@ export const InputText = ({
         <input
           type="text"
           name={labelText}
-          className={`w-full bg-primaryVar3 px-2  outline-none focus:border-r`}
+          className={`w-full bg-primaryVar3 px-2 outline-none focus:border-r continut-text`}
           placeholder={placeholder}
           onChange={handleChange}
         />

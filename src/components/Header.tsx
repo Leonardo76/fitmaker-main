@@ -60,23 +60,6 @@ const Header = () => {
 
   const navLinks = buildNavLinks(navLinksConfig);
 
-  // const navLinks = navLinksConfig.map((item, index) => ({
-  //   // id: generat automat => utilizatorul nu-l mai editează manual
-  //   id: index + 1,
-  //
-  //   // title: vine direct din config-ul simplu
-  //   title: item.title,
-  //
-  //   // href: generat automat in sectionId
-  //   href: `#${item.sectionId}`,
-  //
-  //   // hasChildren: rămâne false (cum era la tine) fără să fie repetat în config
-  //   hasChildren: false,
-  //
-  //   // variant: derivat din isCta; nu depinde de text și nu are "as const" în config
-  //   variant: "isCta" in item && item.isCta ? ("cta" as const) : undefined,
-  // }));
-
   return (
     <motion.header
       variants={headerVar}

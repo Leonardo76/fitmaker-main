@@ -7,7 +7,7 @@ type InputDateProps = {
 export default function InputDate({ labelText }: InputDateProps) {
   return (
     <label className={`space-y-2 font-medium`}>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center text-sm lg:text-base">
         {labelText}
         {/*{birthDateError !== "" && (*/}
         {/*  <p className="text-red-400 text-xs">{birthDateError}</p>*/}
@@ -18,9 +18,9 @@ export default function InputDate({ labelText }: InputDateProps) {
           minYear={1926}
           maxYear={2026}
           classNameContainer="flex justify-center items-center align-middle"
-          classNameDay="md:text-end"
-          classNameMonth=""
-          classNameYear="md:text-start"
+          classNameDay="md:text-end continut-text"
+          classNameMonth="continut-text"
+          classNameYear="md:text-start continut-text"
           // dateFormat={[DAY, MONTH, YEAR]}
           // useCalendar={false}
         />

@@ -1,7 +1,6 @@
 import { revealVar } from "../motion/opacityReveal";
 
 import { motion } from "motion/react";
-import { EmailForm } from "./EmailForm";
 
 const Community = () => {
   return (
@@ -13,57 +12,56 @@ const Community = () => {
         viewport={{ once: true }}
         className="container flex flex-col gap-4 xl:gap-6"
       >
-        <div className="relative flex flex-col justify-between gap-3 mx-1 md:mx-3 xl:gap-4">
+        <div className="relative mx-1 flex flex-col justify-between gap-3 md:mx-3 xl:gap-4">
           <div className="absolute left-1/2 top-1/2 -z-10 h-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primaryVar5 blur-[150px]" />
-          <h2 className="text-center w-full text-xl font-semibold lg:text-2xl lg:font-bold xl:text-3xl">
-            Join Our <span className="text-primary">Fitness Community</span>
+          <h2 className="titlu-capitol-text w-full text-center">
+            Alătura-te <span className="text-primary">Comunității</span> Mele
           </h2>
-          <p className="max-xl:text-xs">
-            Enroll now to unlock exclusive access to personalized workout plans,
-            expert coaching, and a supportive community that will help you
-            achieve your fitness goals.
+          <p className="continut-text text-justify">
+            Înscrie-te acum pentru a obține acces exclusiv la planuri de
+            antrenament personalizate, îndrumare de specialitate și o comunitate
+            de susținere care te va ajuta să îți atingi obiectivele de fitness.
           </p>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6">
-            <div className="h-30 rounded-lg bg-grey p-1.5 md:p-2 xl:p-3 text-center ">
-              <h4 className="mb-1 text-center font-medium max-xl:text-sm xl:mb-2">
-                Expert <span className="text-primary">Coaching</span>
-              </h4>
-              <p className="text-xs">
-                Customized routines that match your fitness level and goals,
-                ensuring you achieve the best results in the most efficient way.
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:items-stretch md:gap-6">
+            <div className="rounded-lg bg-greyLight p-1.5 text-left md:flex md:h-full md:flex-col md:p-2 xl:p-3">
+              <div className="mb-1 md:flex md:min-h-[3.5rem] md:items-center md:justify-center xl:mb-2">
+                <h4 className="subtitlu-capitol-text text-center font-medium">
+                  Îndrumare{" "}
+                  <span className="text-primary">de specialitate</span>
+                </h4>
+              </div>
+              <p className="continut-text text-justify">
+                Rutine personalizate care se potrivesc nivelului tău de fitness
+                și obiectivelor tale, astfel încât să obții cele mai bune
+                rezultate în cel mai eficient mod.
               </p>
             </div>
-            <div className="h-30 rounded-lg bg-grey p-1.5 md:p-2 xl:p-3 text-center ">
-              <h4 className="mb-1 text-center font-medium max-xl:text-sm xl:mb-2">
-                <span className="text-primary">Personalized</span> Workout Plans
-              </h4>
-              <p className="text-xs">
-                Work with certified trainers who will guide you every step of
-                the way to ensure you&apos;re on the right track. Sign Up.
+            <div className="rounded-lg bg-greyLight p-1.5 text-left md:flex md:h-full md:flex-col md:p-2 xl:p-3">
+              <div className="mb-1 md:flex md:min-h-[3.5rem] md:items-center md:justify-center xl:mb-2">
+                <h4 className="subtitlu-capitol-text text-center font-medium">
+                  Planuri de antrenament{" "}
+                  <span className="text-primary">personalizate</span>
+                </h4>
+              </div>
+              <p className="continut-text text-justify">
+                Lucrează alături de un antrenor certificat care te va ghida la
+                fiecare pas, pentru ca tu să fii mereu pe drumul cel bun.
+                Înscrie-te acum.
               </p>
             </div>
-            <div className="h-30 rounded-lg bg-grey p-1.5 md:p-2 xl:p-3 text-center ">
-              <h4 className="mb-1 text-center font-medium max-xl:text-sm xl:mb-2">
-                <span className="text-primary">Community </span> Support
-              </h4>
-              <p className="text-xs">
-                Join a vibrant community of fitness enthusiasts where you can
-                share experiences, get motivated, and stay inspired.
+            <div className="rounded-lg bg-greyLight p-1.5 text-left md:flex md:h-full md:flex-col md:p-2 xl:p-3">
+              <div className="mb-1 md:flex md:min-h-[3.5rem] md:items-center md:justify-center xl:mb-2">
+                <h4 className="subtitlu-capitol-text text-center font-medium">
+                  <span className="text-primary">Sprijinul</span> comunității
+                </h4>
+              </div>
+              <p className="continut-text text-justify">
+                Alătură-te unei comunități active de pasionați de fitness, unde
+                poți împărtăși experiențe, găsi motivație și rămâne inspirat.
               </p>
             </div>
-            {/*<div className="rounded-lg bg-gray p-1.5 md:p-2 xl:p-3">*/}
-            {/*  <h4 className="mb-1 text-center font-medium max-xl:text-sm xl:mb-2">*/}
-            {/*    Exclusive <span className="text-primary">Resources</span>*/}
-            {/*  </h4>*/}
-            {/*  <p className="text-xs">*/}
-            {/*    Access premium content, including video tutorials, nutrition*/}
-            {/*    guides, and member-only discounts on fitness gear.*/}
-            {/*  </p>*/}
-            {/*</div>*/}
           </div>
         </div>
-
-        <EmailForm minYear={1926} maxYear={new Date().getFullYear()} />
       </motion.div>
     </section>
   );

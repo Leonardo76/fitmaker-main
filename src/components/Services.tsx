@@ -6,7 +6,7 @@ import { revealVar } from "../motion/opacityReveal";
 const Services = () => {
   return (
     <section
-      className={`md:mx-1 py-8 relative lg:py-10 xl:py-12`}
+      className={`relative py-8 md:mx-1 lg:py-10 xl:py-12`}
       id="services"
     >
       <div className="absolute inset-0 h-1/4 w-full bg-primaryVar4 blur-[400px]" />
@@ -17,50 +17,29 @@ const Services = () => {
         viewport={{ once: true }}
         className="container space-y-4 text-center xl:space-y-6"
       >
-        <h2 className="text-xl font-semibold lg:text-2xl lg:font-bold xl:text-3xl">
-          Our <span className="text-primary">Services</span>
+        <h2 className="titlu-capitol-text">
+          Stabilește-ți <span className="text-primary">Obiectivele</span>
         </h2>
-        {/* VECHI */}
-        {/* <p className="text-xs lg:text-sm xl:text-base">
-         At This Part You Can Easily access all of our services. take a look at
-         them and chose whichever you want.
-         </p> */}
-
-        {/* NOU (copy mai curat) */}
-        <p className="text-xs lg:text-sm xl:text-base">
-          Explore our services below and choose the option that fits your goals.
-        </p>
-
-        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4 px-1">
-          {/* VECHI */}
-          {/* {services.map((service, i) => (
-           <div key={i} className="relative overflow-hidden">
-           <img
-           src={service.image}
-           alt=""
-           className="w-full h-full object-cover"
-           /> */}
-
-          {/* NOU */}
+        <div className="grid gap-3 px-1 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service) => (
-            <div key={service.id} className="relative overflow-hidden">
+            <div key={service.name} className="relative overflow-hidden">
               <img
                 src={service.image}
                 alt={service.name}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 loading="lazy"
               />
 
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/40 to-transparent" />
 
-              {/* Content */}
-              <div className="absolute inset-0 flex flex-col top-1/2 lg:-translate-y-[10%] gap-3 p-4">
-                <p className="text-2xl font-bold uppercase text-red-500 drop-shadow-lg">
-                  {service.name}
-                </p>
+              <div className="absolute inset-0 flex flex-col p-4 pt-[75%] md:pt-[80%] lg:pt-[70%]">
+                <div className="mb-3 flex min-h-[3.5rem] items-center justify-center">
+                  <p className="text-xl lg:text-2xl font-bold uppercase text-red-500 drop-shadow-lg">
+                    {service.name}
+                  </p>
+                </div>
 
-                <p className="text-sm md:text-base text-gray-200 leading-relaxed drop-shadow-md ">
+                <p className="continut-text text-justify leading-relaxed text-gray-200 drop-shadow-md">
                   {service.text}
                 </p>
               </div>

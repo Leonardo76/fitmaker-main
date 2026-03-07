@@ -121,7 +121,7 @@ export function makeEmailSubmitSchema(minYear: number, maxYear: number) {
 // >;
 
 /**
- * NOU: normalizează string-ul către format canonic YYYY/MM/DD:
+ * normalizează string-ul către format canonic YYYY/MM/DD:
  * - anul pad la 4 cifre
  * - luna/ziua pad la 2 cifre
  *
@@ -139,7 +139,7 @@ export function normalizeBirthDateString(value: string) {
 }
 
 /**
- * NOU: verifică strict formatul final YYYY/MM/DD și corectitudinea zilei în lună.
+ * verifică strict formatul final YYYY/MM/DD și corectitudinea zilei în lună.
  * Permite anul 0000..9999.
  */
 export function isValidBirthDateYYYYMMDD(value: string) {
@@ -194,6 +194,7 @@ export function pickByCodePriority(
 }
 //endregion
 
+//region Tipuri pentru link-urile din meniu
 // elementul editabil din constants.ts (navLinksConfig)
 export type NavLinkConfigItem = {
   title: string; // textul afișat în meniu (traductibil)
@@ -215,3 +216,18 @@ export type NavLink = {
 };
 
 export type NavLinks = readonly NavLink[];
+//endregion
+
+//region Tipuri pentru mesajele din jurul imaginii din Hero
+export type FigureItem = {
+  figures: string;
+  desc: string;
+};
+
+export type StatItem = FigureItem & {
+  id: number;
+  positionClass: string;
+  style: CSSProperties;
+};
+
+//endregion
