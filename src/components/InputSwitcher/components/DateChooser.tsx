@@ -397,12 +397,7 @@ export default function DateChooser({
   };
 
   const handleFocus = (inputRef: RefObject<HTMLInputElement | null>) => {
-    // VECHI:
-    // inputRef.current?.setSelectionRange(0, 0);
-    // NOU:
-    requestAnimationFrame(() => {
-      inputRef.current?.setSelectionRange(0, 0);
-    });
+    inputRef.current?.setSelectionRange(0, 0);
   };
 
   const inputMapping: Record<TimeFields, RefObject<HTMLInputElement | null>> = {
