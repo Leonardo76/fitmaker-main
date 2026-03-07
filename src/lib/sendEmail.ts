@@ -65,6 +65,7 @@ export function sendEmail({
       (error) => {
         setEmailSent(false);
         setErrorMessage(error?.text ?? "Eroare la trimiterea emailului.");
+        console.log(error);
         throw error;
       },
     );
