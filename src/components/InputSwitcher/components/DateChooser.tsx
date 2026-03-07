@@ -44,7 +44,10 @@ export default function DateChooser({
   const [month, setMonth] = useState<string>("01");
   const currentYear = new Date().getFullYear();
   const [year, setYear] = useState<string>(currentYear.toString());
-  const [newPressedKey, setNewPressedKey] = useState("");
+  // VECHI:
+  // const [newPressedKey, setNewPressedKey] = useState("");
+  // NOU:
+  // removed: on mobile, virtual keyboards don't reliably trigger keydown for digits
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
 
   const birthDateInStore = useEmailStore((state) => state.birthDate);
@@ -86,14 +89,11 @@ export default function DateChooser({
     );
   }, [month, year]);
 
-  // utilizam useMemo pentru schema (se recreează doar dacă se schimbă minYear/maxYear)
   const birthDateSchema = useMemo(
     () => makeBirthDateSchema(minYear, maxYear),
     [minYear, maxYear],
   );
 
-  // după ce day/month/year sunt curate, construim YYYY/MM/DD și îl scriem în store
-  // sincronizează mereu în store în format canonic YYYY/MM/DD (cu zero-uri)
   useEffect(() => {
     const yyyy = year.toString().padStart(4, "0");
     const mm = month.toString().padStart(2, "0");
@@ -107,7 +107,6 @@ export default function DateChooser({
     const result = birthDateSchema.safeParse(birthDate);
 
     if (!result.success) {
-      // prioritate: format înainte de range (determinist prin ordinea refine-urilor)
       const firstIssue = result.error.issues[0];
       setBirthDateError(stripValidationCode(firstIssue.message));
     } else {
@@ -148,7 +147,7 @@ export default function DateChooser({
     if (event.key === "ArrowRight") {
       event.preventDefault();
       if (inputRef.current) {
-        const el = inputRef.current; // scurtăm accesul și evităm repetarea
+        const el = inputRef.current;
         const cursorPos = el.selectionStart;
         if (cursorPos === null) return;
 
@@ -215,8 +214,12 @@ export default function DateChooser({
           nextInputRef.current?.setSelectionRange(0, 0);
         }
       }
-    } else if (event.key.length === 1 && /^[0-9]$/.test(event.key)) {
-      setNewPressedKey(event.key);
+      // VECHI:
+      // } else if (event.key.length === 1 && /^[0-9]$/.test(event.key)) {
+      //   setNewPressedKey(event.key);
+      // }
+      // NOU:
+      // digits are handled in onChange using nativeEvent.data
     }
   };
 
@@ -296,8 +299,21 @@ export default function DateChooser({
 
     const inputElement = inputRef.current;
 
-    if (newPressedKey === "") {
-      //the pressed key it is not a number (see handleKeyPress)
+    // VECHI:
+    // if (newPressedKey === "") {
+    //   //the pressed key it is not a number (see handleKeyPress)
+    //   return;
+    // }
+    // NOU:
+    const typedChar =
+      "data" in event.nativeEvent &&
+      typeof event.nativeEvent.data === "string" &&
+      /^[0-9]$/.test(event.nativeEvent.data)
+        ? event.nativeEvent.data
+        : "";
+
+    // NOU:
+    if (!typedChar) {
       return;
     }
 
@@ -320,7 +336,8 @@ export default function DateChooser({
             afterCursor,
             parseInt(month, 10),
             parseInt(year, 10),
-            newPressedKey,
+            // VECHI: newPressedKey,
+            typedChar,
           );
           newValue = computed ?? inputValue;
           setDay(newValue);
@@ -331,11 +348,13 @@ export default function DateChooser({
             cursorPos,
             beforeCursor,
             afterCursor,
-            newPressedKey,
+            // VECHI: newPressedKey,
+            typedChar,
           );
           newValue = computed ?? inputValue;
           setMonth(newValue);
         }
+
         if (inputRef === inputYearRef) {
           const computed = getNewValueForYear(
             cursorPos,
@@ -343,7 +362,8 @@ export default function DateChooser({
             afterCursor,
             minYear,
             maxYear,
-            newPressedKey,
+            // VECHI: newPressedKey,
+            typedChar,
           );
           newValue = computed ?? inputValue;
           setYear(newValue);
@@ -358,36 +378,28 @@ export default function DateChooser({
           inputRef === inputDayRef || inputRef === inputMonthRef;
         const isYear = inputRef === inputYearRef;
 
-        //cursor la finalul textului curent
         const atRightEdge = cursorPos >= inputElement.value.length;
 
         if (isDayOrMonth && !isYear && atRightEdge) {
-          // Regula cerută (fără să schimbăm restul logicii):
-          // zi -> luna, luna -> an
           const nextRef =
             inputRef === inputDayRef ? inputMonthRef : inputYearRef;
 
-          // setăm focus pe următorul câmp și punem cursorul la început (stânga)
           nextRef.current?.focus();
           nextRef.current?.setSelectionRange(0, 0);
         }
 
-        setNewPressedKey("");
+        // VECHI:
+        // setNewPressedKey("");
+        // NOU:
+        // no-op, value is read directly from the input event
       }
     }
   };
 
   const handleFocus = (inputRef: RefObject<HTMLInputElement | null>) => {
-    inputRef.current?.setSelectionRange(0, 0); // Poziționează cursorul la începutul textului
+    inputRef.current?.setSelectionRange(0, 0);
   };
 
-  // const inputMapping: {
-  //   [key in TimeFields]: RefObject<HTMLInputElement>;
-  // } = {
-  //   [DAY]: inputDayRef,
-  //   [MONTH]: inputMonthRef,
-  //   [YEAR]: inputYearRef,
-  // };
   const inputMapping: Record<TimeFields, RefObject<HTMLInputElement | null>> = {
     [DAY]: inputDayRef,
     [MONTH]: inputMonthRef,
@@ -413,6 +425,7 @@ export default function DateChooser({
       inputMapping[prevField],
     );
   };
+
   return (
     <div className={`relative ${classNameContainer}`}>
       <div className="flex gap-2 flex-col justify-center align-middle items-center">
