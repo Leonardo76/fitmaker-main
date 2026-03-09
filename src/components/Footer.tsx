@@ -42,7 +42,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="container pt-10">
-        <p className="ml-auto w-[33ch] text-right text-wrap text-xs text-greyText lg:text-sm">
+        <p className="ml-auto w-[33ch] text-right text-wrap text-xs text-transparent lg:text-sm">
           Copyright © {new Date().getFullYear()} Leonardo Cernăianu. All rights
           reserved.
         </p>
