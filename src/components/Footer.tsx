@@ -9,7 +9,7 @@ const Footer = () => {
       id="contact"
     >
       <div className="container flex gap-6 max-md:flex-col md:justify-between md:gap-5">
-        <div className="flex-1 space-y-4 xl:space-y-6">
+        <div className="flex-1 space-y-4 xl:space-y-6 md:border-r md:border-greyText md:pr-5">
           <Logo />
           <p className="text-justify text-greyText continut-text">
             Transformă-ți corpul alături de Eduard Bălăiță, partenerul tău de
@@ -24,8 +24,8 @@ const Footer = () => {
         </div>
 
         <div className="md:w-fit md:shrink-0">
-          <div className="flex flex-col items-start space-y-3 md:space-y-6 text-left xl:space-y-9">
-            <div className="text-base font-medium text-primaryVar5 xl:text-2xl xl:font-bold">
+          <div className="flex flex-col items-start space-y-5 text-left">
+            <div className="text-base font-bold text-primaryVar5 xl:text-xl">
               Contact
             </div>
             <div className="flex flex-col gap-5 xl:gap-6">
@@ -40,6 +40,12 @@ const Footer = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="container pt-10">
+        <p className="ml-auto w-[33ch] text-right text-wrap text-xs text-greyText lg:text-sm">
+          Copyright © {new Date().getFullYear()} Leonardo Cernăianu. All rights
+          reserved.
+        </p>
       </div>
     </section>
   );
