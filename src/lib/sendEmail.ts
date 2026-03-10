@@ -3,16 +3,7 @@ import emailjs from "@emailjs/browser";
 import { useEmailStore } from "../stores/useEmailStore";
 import { capitalize, getAge, getDateInRomanian } from "./utils";
 import { EmailOptionsType } from "./types";
-
-//type EmailOptionsType = {
-//   firstName: string;
-//   lastName: string;
-//   email: string;
-//   sex: "masculin" | "feminin";
-//   birthDate: string;
-//   goal: string;
-//   subject?: string;
-// };
+import { env } from "./env";
 
 export function sendEmail({
   firstName,
@@ -34,9 +25,10 @@ export function sendEmail({
 
   //event.preventDefault(); // This is important, the email will not be sent without it
 
-  const serviceId = import.meta.env.VITE_SERVICE_ID as string;
-  const templateId = import.meta.env.VITE_TEMPLATE_ID as string;
-  const publicKey = import.meta.env.VITE_PUBLIC_KEY as string;
+  const { serviceId, templateId, publicKey } = env;
+  // const serviceId = import.meta.env.VITE_SERVICE_ID as string;
+  // const templateId = import.meta.env.VITE_TEMPLATE_ID as string;
+  // const publicKey = import.meta.env.VITE_PUBLIC_KEY as string;
 
   return emailjs
     .send(
